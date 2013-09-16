@@ -1,0 +1,41 @@
+/* This file will hold styles that are loaded using the same media query as the wide grid. */
+
+input.form-submit {
+	font:italic 1.15em Georgia, "Times New Roman", Times, serif;
+}
+
+ul#main-menu li {
+	margin-left:2.2em;
+	margin-right:2.2em;
+}
+
+.view-display-id-block .view-content .views-row .views-field-field-image {
+	height:400px;
+	overflow:hidden;
+}
+
+.view-display-id-block_1 .view-content .views-row .views-field-field-image {
+	height:150px;
+	overflow:hidden;
+}
+
+.front .view-display-id-block .view-content .views-row {
+	width:48%;
+	height:565px;
+}
+
+#leaflet-map {
+	width:50%; !important
+}
+
+.view-display-id-attachment_2 {
+	width:40%;
+	float:right;
+}
+
+.view-map-filter-leaflet .view-filters,
+.view-map-filter-activity .view-filters {
+	float:right;
+	width:40%;
+
+}

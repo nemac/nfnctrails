@@ -1,0 +1,48 @@
+/**
+ * This will display them grid elements as block rather than inline for mobile browsers 
+ * (essentially anything smaller than the narrow grid size, and media query declares. 
+ */
+
+.responsive-layout-mobile .view-front-page-internal-links .view-content .views-row {
+	display:inline-block;
+	position:relative;
+	float:left;
+	width:95%;
+	margin-top:1em;
+	margin-right:1em;
+	overflow:hidden;
+	height:auto;
+	text-align:left;
+}
+
+.responsive-layout-mobile.front .views-field-field-image {
+	height:150px;
+	overflow:hidden;
+}
+
+.responsive-layout-mobile.front #block-menu-menu-footer-menu {
+	margin-bottom:1em;
+}
+
+.responsive-layout-mobile.front #block-block-1 {
+	margin:1em;
+}
+
+.responsive-layout-mobile #leaflet-map {
+	width:90%; !important
+	margin:1em;
+}
+
+.responsive-layout-mobile .view-display-id-attachment_2 {
+	width:100%;
+	float:none;
+	clear:both;
+	margin:1em;
+}
+
+.responsive-layout-mobile .view-map-filter-leaflet .view-filters,
+.responsive-layout-mobile .view-map-filter-activity .view-filters {
+	float:none;
+	width:100%;
+	margin:1em;
+}

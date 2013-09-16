@@ -1,0 +1,18 @@
+name = Weather
+description = Displays METAR weather data
+core = 7.x
+dependencies[] = block
+configure = admin/config/user-interface/weather
+files[] = weather.module
+files[] = weather.install
+files[] = weather.forms.inc
+files[] = weather_parser.inc
+files[] = weather_theme.inc
+files[] = weather_data.txt
+files[] = weather.tpl.php
+files[] = weather_compact.tpl.php
+files[] = tests/permissions.test
+files[] = tests/parser.test
+
+
+

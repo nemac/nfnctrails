@@ -1,0 +1,84 @@
+/* This is the css file for the front page. 
+It will ONLY be called for the front page, which is a really important thing to remember.*/
+
+
+
+.front #zone-content,
+.context-home #zone-content {
+	background:none;
+	padding-left:3em;
+}
+
+.front #region-sidebar-first .content,
+.context-home #region-sidebar-first .content {
+	text-align:center;
+}
+
+.view-display-id-block .view-content .views-row {
+	display:inline-block;
+	position:relative;
+	float:left;
+	margin-top:1em;
+	margin-right:1em;
+	background-color: #344111;
+	color:#fff;
+	overflow:hidden;
+	text-align:left;
+}
+
+
+.view-display-id-block .view-content .views-row h2 {
+	color:#fff;
+	font-size:1.75em;
+}
+
+.view-display-id-block .view-content .views-row h2 a {
+	color:#fff;
+}
+
+.view-display-id-block .view-content .views-row .views-field-body,
+.view-display-id-block .view-content .views-row .views-field-title,
+.view-display-id-block_1 .view-content .views-row .views-field-body,
+.view-display-id-block_1 .view-content .views-row .views-field-title {
+	margin:1em;
+}
+
+.view-display-id-block_1 .view-content .views-row {
+	background: #ebe6d6;
+	color: #333;
+	margin-top:1em;
+	overflow:hidden;
+}
+
+.view-display-id-block_1 .view-content .views-row h2 {
+	border-bottom: thin dotted #334111;
+	margin-top: 0;
+	margin-bottom: 1em;
+	font-size: 18px;
+}
+
+.view-display-id-block_1 .view-content .views-row h2 a {
+	color:#334111;
+}
+
+
+.front #block-system-main .content p,
+.context-home #block-system-main .content p {
+	font-size: 1.2em;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #FFF;
+}
+
+.front .view-content img,
+.context-home .view-content img {
+	margin:0;
+}
+
+
+#region-sidebar-second, #region-sidebar-first {
+	margin:0;
+}
+
+
+
+

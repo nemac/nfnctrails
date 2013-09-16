@@ -1,0 +1,772 @@
+/* This file will hold styles for the mobile version of your website (mobile first). */
+/* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
+
+  /*********************/
+ /*GENERAL SITE STYLES*/
+/*********************/
+
+html, body {
+	background:url('../images/bg.png') repeat #c1bba9;
+	color:#222;
+}
+
+a:hover {
+	color: #344111;
+	text-decoration: underline;
+}
+
+a:link, a:visited {
+	color: #666644;
+	text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-weight:normal;
+	color:#666644;
+}
+
+h2.element-invisible {
+	margin:0;
+}
+
+input.form-submit {
+	background:#FFF;
+	border:thin solid #999;
+	font:italic Georgia, "Times New Roman", Times, serif;
+	color:#868686;	
+}
+
+tr:hover td, tr.even:hover td.active, 
+tr.odd:hover td.active {
+	background: #FFF;
+}
+
+tr.even, tr.even td.active,
+tr.odd td.active, tr.even td {
+	background-color:#fff;
+}
+
+tr, td, td.active,
+tr.even, tr.odd {
+	border:none;
+}
+
+
+  /**************************/
+ /*HEADER LAYOUT AND STYLES*/
+/**************************/
+
+#section-header {
+	background:url('../images/HEADER-1.jpg') #344111;
+	min-height:200px;
+	padding-top:20px;
+}
+
+#zone-branding-wrapper {
+	text-align:center;
+}
+
+#zone-branding {
+	line-height:5em;
+}
+
+.navigation {
+	display:inline-block;
+	position:relative;
+	float:left;
+}
+
+#zone-branding, #zone-header {
+	text-align:left;
+	padding:10px;
+	background:none);
+}
+
+.logo-img {
+	margin-right:.8em;
+}
+
+.site-name-slogan {
+	margin-top:.8em;
+}
+
+h1.site-title a,
+h2.site-title a {
+	color:#fff;
+	text-decoration:none;
+	font-size:36px;
+}
+
+h1.site-title,
+h2.site-title {
+	margin-top:5px;
+	margin-bottom:0;
+	line-height:.9em;
+	font-size:36px;
+}
+
+h6.site-slogan {
+	color:#fff;
+	font-size:1.1em;
+	margin-top:.3em;
+}
+
+ul#main-menu {
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+ul#main-menu li {
+	font-size:1.1em;
+	text-transform:uppercase;
+}
+
+ul#main-menu li a {
+	text-decoration:none;
+	color:#fff;
+	white-space:nowrap;
+}
+
+#zone-header {
+	margin-bottom:1em;
+}
+
+.block-menu-navigation-menu {
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
+
+.block-menu-navigation-menu ul li {
+	font-size:1.6em;
+	margin-left:1.8em;
+	margin-right:1.8em;
+	list-style:none;
+	font-style:italic;
+	border-bottom:solid thin #999;
+	padding-top:.4em;
+	padding-bottom:.4em;
+}
+
+.block-menu-navigation-menu ul li.expanded ul li {
+	font-size:.8em;
+	margin-left:1em;
+	margin-right:1em;
+	border-bottom:none;
+}
+
+.block-menu-navigation-menu ul li.expanded ul li a.active {
+	border-bottom:thin dotted #888;
+}
+
+.block-menu-navigation-menu ul li.expanded ul li a{
+	color:#555;
+}
+
+
+.block-menu-navigation-menu ul li.last {
+	border:none;
+}
+
+.block-menu-navigation-menu ul li a {
+	text-decoration:none;
+	color:#333;
+}
+
+#block-search-form {
+	float:left;
+	margin-left:25px;
+}
+
+
+  /***************************/
+ /*CONTENT LAYOUT AND STYLES*/
+/***************************/
+
+#section-content {
+	padding-bottom:10px;
+}
+
+#zone-content {
+	background:#FFF;
+	padding-bottom:15px;
+}
+
+.not-front h2.block-title,
+h2.pane-title {
+	margin-bottom:1em;
+	font-size:18px;
+}
+
+.trailmeta3 {
+	text-align:center;
+}
+
+.submitted, .metadata {
+	color:#666;
+	text-transform: uppercase;
+	font-size: .7em;
+}
+
+.submitted {
+	display:none;
+	margin:1em;
+}
+
+.page-node .field-name-body {
+	margin-top:2em;
+}
+
+.field-type-image .field-item {
+	float:left;
+	margin-right:10px;
+}
+
+.field-name-field-images {
+	clear:both;
+	margin:15px;
+}
+
+.view-content img {
+	margin:.5em;
+}
+
+  /***********************************/
+ /*TRAIL/TRAIL SYSTEM CONTENT STYLES*/
+/***********************************/
+
+.olMap .olMapViewport {
+	margin-top:1em;
+	margin-bottom:1em;
+}
+
+.node-type-trail .view-header,
+.field-name-field-video-legend-comments,
+.trailmeta3 {
+	font-size:.85em;
+	color:#666;
+}
+
+.field-name-field-trail-type .field-items {
+	clear:both;
+}
+
+.field-name-field-difficulty, .field-name-field-district {
+	clear:left;
+}
+
+.field-name-field-trail-type .field-item,
+{
+	display:inline-block;
+	float:left;
+}
+
+.panels-flexible-row .title {
+	display:inline-block;
+}
+
+.pane-trail-metadata, .trailmeta2, .views-exposed-form label {
+	text-transform:uppercase;
+	font-size:.8em;
+}
+
+.views-exposed-form label {
+	font-weight:bold;
+	margin-bottom:5px;
+}
+
+.pane-trail-metadata {
+	color:#fff;
+	background-color:#c3bcaa;
+	padding:1em;
+	border-radius:1em;
+	-khtml-border-radius:1em;
+	-moz-border-radius:1em;
+	-webkit-border-radius:1em;
+	display:inline-block;
+	width:90%;
+	margin:1em 1em 1em 0;
+	clear:none;
+}
+
+.trailmeta2, .views-exposed-form label {
+	color:#666633;
+}
+
+.trailmeta2 a {
+	color:#36411b;
+}
+
+.trailmeta2 a:hover {
+	text-decoration:underline;
+}
+
+td.trail-image {
+	width:130px;
+	vertical-align:top;
+}
+
+.node-type-trail-system td.trail-image {
+	width:80px;
+	vertical-align:top;
+}
+
+.pane-trail-metadata .view-content .views-label {
+	float:left;
+	margin-right:5px;
+}
+
+.pane-trail-metadata .view-content .views-field {
+	clear:both;
+}
+
+.openlayers-popup a {
+	color:#FFF;
+}
+
+.pane-node-title .pane-content {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+	color: #666644;
+	font-size: 36px;
+	margin-bottom: 20px;
+}
+
+.panels-flexible-region-1-iconography div {
+	float:right;
+}
+
+td.trailmeta div {
+	float:right;
+}
+
+td.trail-title, td.trailmeta {
+	vertical-align:top;
+}
+
+h4.trail {
+	margin-bottom:3px;
+}
+
+.panels-flexible-region-1-iconography .panel-pane,
+td.trailmeta .trail-type {
+	margin:.25em;
+}
+
+.trail-type img {
+	margin:0;
+	margin-top:-2px;
+}
+
+.field-name-field-trail-number, .trail-number,
+.views-field-field-trail-kml a,
+.views-field-field-trail-gpx a {
+	color:#FFF;
+	background:#666644;
+	border-radius:1em;
+	-khtml-border-radius:1em;
+	-moz-border-radius:1em;
+	-webkit-border-radius:1em;
+	padding:.5em;
+	text-transform:uppercase;
+	font-size:.8em;
+	text-align:center;
+	display:inline-block;
+}
+
+.views-field-field-trail-kml a,
+.views-field-field-trail-gpx a {
+	float:left;
+	margin-right:1em;
+}
+
+.block-related-trails-block-1 {
+	padding:1em;
+	margin-top:3em;
+}
+
+.pane-node-field-elevation-mugl {
+	margin-top:2em;
+}
+
+.multigraph .multigraph-datatip {
+	color:#FFF;
+	text-transform:uppercase;
+	font-size:.8em;
+}
+
+
+.node-type-trail-system .view-trail-images .view-content div,
+.node-type-trail-system .view-trail-images .view-content img {
+	position:relative;
+	float:left;
+	display:inline;
+}
+
+
+#quicktabs-trail_tabs #quicktabs-container-trail_tabs {
+	color:#36411b;
+	background:#f6f1e6;
+	border:none;
+	padding:2em;
+	min-height:15em;
+	max-height:15em;
+	overflow:auto;
+}
+
+#quicktabs-trail_tabs .item-list ul {
+	border:none;
+}
+
+#quicktabs-trail_tabs .item-list ul.quicktabs-tabs li {
+	background:#e8e0cd;
+	border:none;
+	padding-left:1em;
+	padding-right:1em;
+	padding-top:.5em;
+	padding-bottom:.3em;
+	margin-bottom:-1px;
+	-khtml-border-radius-topleft: 8px;
+	-khtml-border-radius-topright: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+#quicktabs-trail_tabs .item-list ul.quicktabs-tabs li.active {
+	background:#f6f1e6;
+}
+
+#quicktabs-trail_tabs .item-list ul.quicktabs-tabs li a {
+	color:#36411b;
+}
+
+.view-trail-tab-information table {
+	background:#FFF;
+}
+
+.block-special-sites-mini a {
+	color:#666644;
+}
+
+
+
+/*fricken image gallery*/
+.jcarousel-skin-default img {
+	margin:0;
+}
+
+.jcarousel-skin-default .jcarousel-container-horizontal {
+	padding:0;
+	margin:0;
+	text-align:center;
+	height:200px;
+}
+
+.jcarousel-skin-default .jcarousel-item {
+	padding: 0;
+	width: 180px;
+	height: 180px;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	list-style: none;
+	background: #fff none;
+}
+
+.jcarousel-skin-default .jcarousel-clip-horizontal {
+	max-width:420px;
+	width:100%;
+}
+
+.jcarousel-clip {
+	overflow:hidden;
+	padding:1em;
+}
+
+.jcarousel-skin-default .jcarousel-next-horizontal {
+	position: absolute;
+	top:100px;
+	right:-13px;
+	background-position: 0 -32px;
+}
+
+
+.jcarousel-skin-default li.jcarousel-item-placeholder {
+	display:none;
+}
+
+.jcarousel-skin-default .jcarousel-prev-horizontal {
+	top:100px;
+	left:-13px;
+}
+
+
+  /********************/
+ /*BROWSE TRAILS PAGE*/
+/********************/
+
+h3.trail-search-title {
+	margin-bottom:0;
+}
+
+.form-item-field-length-miles-2-value-min input,
+.form-item-field-length-miles-2-value-max input {
+	width:3em;
+}
+
+.form-item-field-length-miles-2-value-min input {
+	float:left;
+	margin-right:5px;
+}
+
+.form-item-field-length-miles-2-value-max label {
+	text-transform:lowercase;
+	float:left;
+	margin-right:5px;
+	display:inline-block;
+}
+
+.view-map-filter-leaflet .attachment {
+	margin-top:1em;
+}
+
+#edit-field-length-miles-2-value-wrapper {
+	width:8.4em;
+}
+
+#edit-field-length-miles-2-value-wrapper .description {
+	text-align:right;
+	text-transform:lowercase;
+}
+
+td.views-field-field-trail-type {
+	padding:0;
+}
+
+td.trailmeta2 {
+	padding:.5em;
+	width:30%;
+}
+
+td .node-type {
+	display:inline-block;
+	float:left;
+	width:35px;
+	height:35px;
+}
+
+td.views-field-field-trail-type {
+	width:30%;
+}
+
+
+
+#leaflet-map {
+	display:inline-block;
+	float:left;
+	position:relative;
+	margin:2em;
+}
+
+.view-display-id-attachment_2 {
+	margin:1em;
+	text-align:left;
+}
+
+.view-id-map_filter_leaflet.view-content {
+	text-align:center;
+}
+
+.view-display-id-attachment_1 {
+	margin-top:2em;
+	clear:both;
+}
+
+
+.panels-flexible-region-1-trail_system_info {
+	background:#f6f1e6;
+	padding:1em;
+	width:97%;
+	margin-top:2em;
+}
+
+
+.pane-trail-system-video h2.pane-title {
+	font-size:24px;
+}
+
+
+.node-type-trail h1.title,
+.node-type-trail-system h1.title {
+	display:none;
+}
+
+
+.context-browse-trails .views-field-field-image {
+	display:inline-block;
+	position:relative;
+	float:left;
+	margin:.25em .5em 0 0;
+}
+
+
+.view-id-map_filter_districts .attachment .view-id-map_filter_districts {
+	border-left:thin dotted #999;
+	padding-left:1em;
+}
+
+.view-id-map_filter_districts .attachment .views-row .views-field-title {
+	border:thin solid #f6f1e6;
+	background-clip:#fff;
+	padding:.5em;
+	margin-bottom:1em;
+	border-radius:.5em;
+}
+
+.view-id-map_filter_districts .attachment .views-row .views-field-title:hover {
+	background-color:#f6f1e6;
+}
+
+
+.view-id-map_filter_districts .attachment .views-row .views-field-title h3 {
+	margin-bottom:0;
+}
+
+
+
+  /******************/
+ /*VI CONTENT PAGES*/
+/******************/
+
+.node-type-metric-entry .field-name-field-references h3,
+.node-type-metric-entry .field-name-field-references h4,
+.node-type-metric-entry table h3,
+.node-type-metric-entry table h4 {
+	font-size:1em;
+}
+
+.node-type-metric-entry .field-name-field-references p {
+	font-size:.8em;
+}
+
+.node-type-metric-entry .region-content-inner ul {
+	margin-left:2em;
+}
+
+.view-metric-images .field-content {
+	text-align:center;
+}
+
+.page-vitalityindex .view-footer,
+.node-type-metric-entry .pane-1,
+.node-type-trail .pane-1 {
+	text-align:center;
+	color:#666;
+	font-size:.8em;
+	margin-top:2em;
+}
+
+
+  /*********************/
+ /*GET DIRECTIONS PAGE*/
+/*********************/
+
+#getdirections_map_canvas {
+	display:inline-block;
+}
+
+.getdirections table,
+.getdirections-map {
+	border:none;
+}
+
+#getdirections_map_canvas {
+	border:thin solid #999;
+}
+
+.getdirections td {
+	width:50%;
+}
+
+
+  /****************/
+ /*WEATHER MODULE*/
+/****************/
+
+.block-weather {
+	color: #fff;
+	background-color: #c3bcaa;
+	padding: 1em;
+	border-radius: 1em;
+	-khtml-border-radius: 1em;
+	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
+	display: inline-block;
+	width: 90%;
+	margin: 1em;
+	clear: none;
+}
+
+.weather p {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-weight:normal;
+	font-size:1.1em;
+	margin-bottom:.5em;
+}
+
+.weather ul {
+	margin-bottom:.5em;
+}
+
+.weather div {
+	display:inline-block;
+	float:left;
+	padding:5px;
+}
+
+.weather ul li {
+	list-style:none;
+	text-transform: uppercase;
+	font-size: .8em;
+}
+
+.weather small {
+	font-size: .7em;
+}
+
+
+.pane-weather-location {
+	clear:both;
+	margin-top:1em;
+}
+
+.panel-separator {
+	clear:both;
+}
+
+
+  /**************************/
+ /*FOOTER LAYOUT AND STYLES*/
+/**************************/
+
+#zone-footer, #zone-footer li {
+	color:#333;
+	font-size:9px;
+	text-decoration:none;
+}
+
+#zone-footer a {
+	color:#344111;
+}
+
+#zone-footer a:hover {
+	color:#333;
+	text-decoration:underline;
+}
+
+
+#zone-footer li {
+	display:inline-block;
+	list-style:none;
+}

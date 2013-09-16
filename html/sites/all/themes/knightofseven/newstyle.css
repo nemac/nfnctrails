@@ -1,0 +1,87 @@
+  /*****************/
+ /*ADD TRAILS PAGE*/
+/*****************/
+
+
+.group-content .field-group-fieldset {
+	width:100%;
+}
+
+.page-node-add .field-type-text-with-summary,
+.page-node-add .field-type-text-long {
+	width:50%;
+}
+
+.page-node-add .field-name-field-images {
+	clear:both;
+	width:98%;
+}
+
+.group-metadata {
+	padding:1em;
+	margin-right:1em;
+}
+.group-metadata legend {
+	margin-bottom:1em;
+}
+
+.group-metadata .field-name-field-trail-type,
+.group-metadata .field-name-field-trail-difficulty,
+#edit-field-trailhead, .page-node-add-trail #edit-field-connector-trail {
+	width:35%;
+	position:relative;
+	float:left;
+}
+
+#edit-field-trail-number .form-item,
+#edit-field-length-miles-2 .form-item,
+#edit-field-trail-system .form-item,
+#edit-field-district .form-item,
+#edit-field-special-places .form-item {
+	margin:0;
+	width:25%;
+	position:relative;
+	float:left;
+}
+
+#edit-field-special-places .form-item input {
+	width:100%;
+}
+
+.group-map {
+	width:50%;
+}
+
+.group-mapdata, .group-maplocation {
+	border:none;
+	width:45%;
+	position:relative;
+	float:left;
+}
+
+.group-mapdata {
+	margin-left:1em;
+}
+
+.group-map .field-widget-geofield-geojson,
+.group-maplocation .field-name-field-trail-point input {
+	width:50%;
+}
+
+
+  /***********************/
+ /*ADD TRAIL SYSTEM PAGE*/
+/***********************/
+
+#edit-field-video-embed-link-und-0 {
+	border:none;
+	padding:0;
+}
+
+#edit-field-video-embed-link-und-0 .fieldset-wrapper {
+	padding:0;
+}
+
+#edit-field-video-embed-link-und-0 legend {
+	display:none;
+}

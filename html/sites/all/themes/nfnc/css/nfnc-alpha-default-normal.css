@@ -1,0 +1,45 @@
+/* This file will hold styles that are loaded using the same media query as the normal grid. */
+/* If you are using the default media queries provided by Omega, these styles will also
+ *  apply to the widescreen layout unless they are overridden by the widescreen styles. */
+ 
+ input.form-submit {
+	font:italic 1em Georgia, "Times New Roman", Times, serif;
+}
+
+ul#main-menu li {
+	font-size:1.1em;
+	margin-left:2em;
+	margin-right:2em;
+	text-transform:uppercase;
+}
+
+.view-display-id-block .view-content .views-row .views-field-field-image {
+	height:400px;
+	overflow:hidden;
+}
+
+.view-display-id-block_1 .view-content .views-row .views-field-field-image {
+	height:150px;
+	overflow:hidden;
+}
+
+.front .view-display-id-block .view-content .views-row {
+	width:47%;
+	height:565px;
+}
+
+#leaflet-map {
+	width:50%; !important
+}
+
+.view-display-id-attachment_2 {
+	width:40%;
+	float:right;
+}
+
+.view-map-filter-leaflet .view-filters,
+.view-map-filter-activity .view-filters {
+	float:right;
+	width:40%;
+
+}
