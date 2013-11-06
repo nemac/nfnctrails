@@ -58,7 +58,7 @@ tr.even, tr.odd {
 /**************************/
 
 #section-header {
-	background:url('../images/HEADER-1.jpg') #344111;
+	background:url('../images/HEADER-1.png') center #5e7f48 no-repeat;
 	min-height:200px;
 	padding-top:20px;
 }
@@ -87,6 +87,8 @@ tr.even, tr.odd {
 	margin-right:.8em;
 }
 
+
+
 .site-name-slogan {
 	margin-top:.8em;
 }
@@ -108,7 +110,6 @@ h2.site-title {
 
 h6.site-slogan {
 	color:#fff;
-	font-size:1.1em;
 	margin-top:.3em;
 }
 
@@ -136,7 +137,6 @@ ul#main-menu li a {
 }
 
 .block-menu-navigation-menu ul li {
-	font-size:1.6em;
 	margin-left:1.8em;
 	margin-right:1.8em;
 	list-style:none;
@@ -249,6 +249,58 @@ h2.pane-title {
 	clear:both;
 }
 
+.node-type img,
+.openlayers-popup .node-type img,
+.view-id-map_filter_districts img {
+	border-radius: .5em;
+	padding: .1em;
+	background: #666644;
+	width:25px;
+	height:25px;
+}
+
+.openlayers-popup .node-type {
+	position:relative;
+	float:left;
+	display:inline-block;
+}
+
+.openlayers-popup .node-type img {
+	margin:.5em;
+	border:thin solid #999;
+}
+
+#popup_close {
+	border:thin solid #999;
+}
+
+.node-type-trail .field-name-field-geofield-geojson .openlayers-map .olPopup #popup_FrameDecorationDiv_2 {
+    border-bottom-left-radius: 1em;
+}
+
+
+.node-type-trail .field-name-field-geofield-geojson .openlayers-map .olPopup #popup_FrameDecorationDiv_3 {
+    border-bottom-right-radius: 1em;
+}
+
+.node-type-trail .field-name-field-geofield-geojson .openlayers-map .olPopup #popup_FrameDecorationDiv_0 {
+    border-top-left-radius: 1em;
+}
+
+
+
+.node-type-trail .field-name-field-geofield-geojson .openlayers-map .olPopup #popup_FrameDecorationDiv_1 {
+    border-top-right-radius: 1em;
+}
+
+.popup-img {
+	clear:both;
+}
+
+.node-type-trail .pane-trail-system-video iframe {
+	text-align:center;
+}
+
 .field-name-field-difficulty, .field-name-field-district {
 	clear:left;
 }
@@ -263,9 +315,8 @@ h2.pane-title {
 	display:inline-block;
 }
 
-.pane-trail-metadata, .trailmeta2, .views-exposed-form label {
+.pane-trail-metadata, .trailmeta2, .views-exposed-form label, .openlayers-popup {
 	text-transform:uppercase;
-	font-size:.8em;
 }
 
 .views-exposed-form label {
@@ -275,7 +326,7 @@ h2.pane-title {
 
 .pane-trail-metadata {
 	color:#fff;
-	background-color:#c3bcaa;
+	background-color:#666644;
 	padding:1em;
 	border-radius:1em;
 	-khtml-border-radius:1em;
@@ -287,8 +338,29 @@ h2.pane-title {
 	clear:none;
 }
 
+.pane-trail-metadata a {
+	color:#fff;
+}
+
+.views-field-field-special-sites {
+	margin-top:1em;
+}
+
+.views-field-field-special-sites .item-list ul li{
+	margin:0;
+}
+
+.views-label-field-special-sites {
+	clear:both;
+}
+
 .trailmeta2, .views-exposed-form label {
 	color:#666633;
+}
+
+.pane-node-field-elevation-mugl .pane-content-div {
+	text-align:center;
+	display:block;
 }
 
 .trailmeta2 a {
@@ -320,18 +392,23 @@ td.trail-image {
 
 .openlayers-popup a {
 	color:#FFF;
+	font-weight:bold;
 }
 
 .pane-node-title .pane-content {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-weight: normal;
 	color: #666644;
-	font-size: 36px;
 	margin-bottom: 20px;
 }
 
 .panels-flexible-region-1-iconography div {
 	float:right;
+}
+
+.panels-flexible-region-1-iconography div img {
+	width:25px;
+	height:25px;
 }
 
 td.trailmeta div {
@@ -354,6 +431,8 @@ td.trailmeta .trail-type {
 .trail-type img {
 	margin:0;
 	margin-top:-2px;
+	width:25px;
+	height:25px;
 }
 
 .field-name-field-trail-number, .trail-number,
@@ -419,8 +498,8 @@ td.trailmeta .trail-type {
 #quicktabs-trail_tabs .item-list ul.quicktabs-tabs li {
 	background:#e8e0cd;
 	border:none;
-	padding-left:1em;
-	padding-right:1em;
+	padding-left:.75em;
+	padding-right:.75em;
 	padding-top:.5em;
 	padding-bottom:.3em;
 	margin-bottom:-1px;
@@ -438,8 +517,9 @@ td.trailmeta .trail-type {
 	background:#f6f1e6;
 }
 
-#quicktabs-trail_tabs .item-list ul.quicktabs-tabs li a {
+#quicktabs-trail_tabs .item-list ul.quicktabs-tabs.quicktabs-style-basic li a {
 	color:#36411b;
+	font: bold 11px/14px Arial !important;
 }
 
 .view-trail-tab-information table {
@@ -448,6 +528,10 @@ td.trailmeta .trail-type {
 
 .block-special-sites-mini a {
 	color:#666644;
+}
+
+.node-type-special-site .field-type-image .field-item {
+	margin-bottom:1em;
 }
 
 
@@ -501,6 +585,10 @@ td.trailmeta .trail-type {
 	left:-13px;
 }
 
+.node-type-trail .pane-trail-system-video iframe {
+	width:500px;
+}
+
 
   /********************/
  /*BROWSE TRAILS PAGE*/
@@ -508,6 +596,10 @@ td.trailmeta .trail-type {
 
 h3.trail-search-title {
 	margin-bottom:0;
+}
+
+.views-exposed-form .views-exposed-widget .form-submit {
+margin-top: 1em;
 }
 
 .form-item-field-length-miles-2-value-min input,
@@ -566,13 +658,24 @@ td.views-field-field-trail-type {
 	display:inline-block;
 	float:left;
 	position:relative;
-	margin:2em;
+	margin-bottom:1em;
 }
 
 .view-display-id-attachment_2 {
 	margin:1em;
 	text-align:left;
 }
+
+.view-display-id-attachment_2 img.point {
+	width:13px;
+	height:20px;
+}
+
+.view-display-id-attachment_2 img.cluster {
+	width:20px;
+	height:20px;
+}
+
 
 .view-id-map_filter_leaflet.view-content {
 	text-align:center;
@@ -587,8 +690,8 @@ td.views-field-field-trail-type {
 .panels-flexible-region-1-trail_system_info {
 	background:#f6f1e6;
 	padding:1em;
-	width:97%;
 	margin-top:2em;
+	box-sizing:border-box;
 }
 
 
@@ -608,11 +711,19 @@ td.views-field-field-trail-type {
 	position:relative;
 	float:left;
 	margin:.25em .5em 0 0;
+	width:25px;
+	height:25px;
+	margin-right:1em;
 }
 
+.context-browse-trails .views-field-field-image img {
+	width:100%;
+	height:100%;
+	
+}
 
 .view-id-map_filter_districts .attachment .view-id-map_filter_districts {
-	border-left:thin dotted #999;
+	width:100%;
 	padding-left:1em;
 }
 
@@ -639,6 +750,27 @@ td.views-field-field-trail-type {
  /*VI CONTENT PAGES*/
 /******************/
 
+.page-learn-about-nature .view-learn-about-nature .views-row {
+	display:inline-block;
+	position:relative;
+	width:125px;
+	text-align:center;
+}
+
+.page-learn-about-nature .view-learn-about-nature .view-header {
+	text-align:left;
+}
+
+.page-learn-about-nature .view-learn-about-nature div {
+	text-align:center;
+	vertical-align:top;
+}
+
+.page-learn-about-nature .view-learn-about-nature .views-row img {
+	margin:0;
+}
+
+
 .node-type-metric-entry .field-name-field-references h3,
 .node-type-metric-entry .field-name-field-references h4,
 .node-type-metric-entry table h3,
@@ -660,13 +792,25 @@ td.views-field-field-trail-type {
 
 .page-vitalityindex .view-footer,
 .node-type-metric-entry .pane-1,
-.node-type-trail .pane-1 {
+.node-type-trail .pane-1,
+.node-type-metric-entry .view-footer {
 	text-align:center;
 	color:#666;
 	font-size:.8em;
 	margin-top:2em;
 }
 
+.panels-flexible-region-5-images { /*content*/
+	float:none;
+	margin-right:0;
+	width:100%;
+}
+
+.panels-flexible-region-5-center { /*images*/
+	display:inline-block;
+	position:relative;
+	float:right;
+}
 
   /*********************/
  /*GET DIRECTIONS PAGE*/

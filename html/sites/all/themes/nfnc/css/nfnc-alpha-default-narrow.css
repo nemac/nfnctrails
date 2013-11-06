@@ -18,19 +18,114 @@
 	height:305px;
 }
 
-
-#leaflet-map {
-	width:50%; !important
+.view-id-map_filter_districts .attachment .view-id-map_filter_districts .views-row {
+	width:40%;
+	margin-right:1em;
+	position:relative;
+	float:left;
 }
 
 .view-display-id-attachment_2 {
-	width:40%;
-	float:right;
+	width:100%;
 }
 
 .view-map-filter-leaflet .view-filters,
 .view-map-filter-activity .view-filters {
-	float:right;
-	width:40%;
+	width:30%;
+}
 
+
+.block-menu-navigation-menu ul li {
+	font-size:1.2em;
+}
+
+img.weather-image {
+	float:none;
+	clear:both;
+}
+.view-map-filter-activity .form-type-textfield #edit-title {
+	width:130px;
+}
+
+#search-block-form {
+	display:none;
+}
+
+.page-learn-about-nature .view-learn-about-nature .views-row {
+	margin:.15em;
+}
+
+.page-learn-about-nature .view-learn-about-nature .views-row img {
+	width:100px;
+	height:100px;
+}
+
+.view-map-filter-leaflet .view-filters,
+.view-map-filter-activity .view-filters {
+	float:none;
+	width:100%;
+	margin:1em;
+}
+
+.responsive-layout-narrow .weather ul {
+	float:none;
+	clear:both;
+}
+
+.pane-trail-metadata, .trailmeta2, .views-exposed-form label, .openlayers-popup {
+	font-size:.7em;
+}
+
+.pane-node-title .pane-content {
+	font-size: 32px;
+}
+
+
+.responsive-layout-narrow .logo-img {
+	margin-right:1em;
+	position:relative;
+	display:inline-block;
+	float:left;
+
+}
+
+.responsive-layout-narrow ul#main-menu li {
+	font-size:1em;
+}
+
+.logo-img img {
+	width:40px;
+	height:45px;
+}
+
+.responsive-layout-narrow .container-12 .grid-4 {
+	width:375px;
+}
+
+.responsive-layout-narrow #section-header {
+	min-height:100px;
+}
+
+.responsive-layout-narrow .container-12 .grid-8 {
+	width: 300px;
+}
+
+.responsive-layout-narrow .site-name-slogan {
+	position:relative;
+	display:inline-block;
+	float:left;
+}
+
+.node-type-trail .pane-trail-system-video iframe,
+.node-type-metric-entry .pane-node-field-video-embed-link iframe {
+	width:500px;
+}
+
+.view-metric-images img { /*images*/
+	width:90px;
+	height:90px;
+}
+
+#leaflet-map {
+	width:100%;
 }

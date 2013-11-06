@@ -28,18 +28,80 @@ ul#main-menu li {
 	height:565px;
 }
 
-#leaflet-map {
-	width:50%; !important
+.view-id-map_filter_districts .attachment .view-id-map_filter_districts .views-row {
+	width:20%;
+	margin-right:1em;
+	position:relative;
+	float:left;
 }
 
+.pane-trail-metadata, .trailmeta2, .views-exposed-form label, .openlayers-popup {
+	font-size:.8em;
+}
+
+.page-learn-about-nature .view-learn-about-nature .views-row img {
+	width:125px;
+	height:125px;
+}
+
+.page-learn-about-nature .view-learn-about-nature .views-row {
+	margin:1em;
+}
+
+
+.pane-node-title .pane-content {
+	font-size: 36px;
+}
+
+
 .view-display-id-attachment_2 {
-	width:40%;
+	width:30%;
 	float:right;
 }
 
 .view-map-filter-leaflet .view-filters,
 .view-map-filter-activity .view-filters {
 	float:right;
-	width:40%;
+	width:30%;
+}
 
+.view-map-filter-activity .form-type-textfield #edit-title {
+	width:150px;
+}
+
+.block-menu-navigation-menu ul li {
+	font-size:1.4em;
+}
+
+.logo-img img {
+	width:40px;
+	height:45px;
+	margin-left:-3em;
+	margin-right:0;
+}
+
+.responsive-layout-normal h2.site-title a,
+.responsive-layout-normal h1.site-title a {
+	font-size:30px;
+}
+
+#views-submit-button {
+	clear:both;
+}
+
+.node-type-trail .pane-trail-system-video iframe,
+.node-type-metric-entry .pane-node-field-video-embed-link iframe  {
+	width:640px;
+}
+
+
+#leaflet-map {
+	width:65%;
+}
+
+
+
+.view-metric-images img { /*images*/
+	width:125px;
+	height:125px;
 }
