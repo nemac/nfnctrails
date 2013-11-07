@@ -1,8 +1,9 @@
 /* This file will hold styles that are loaded using the same media query as the normal grid. */
 /* If you are using the default media queries provided by Omega, these styles will also
  *  apply to the widescreen layout unless they are overridden by the widescreen styles. */
- 
- input.form-submit {
+
+
+input.form-submit {
 	font:italic 1em Georgia, "Times New Roman", Times, serif;
 }
 
@@ -13,60 +14,12 @@ ul#main-menu li {
 	text-transform:uppercase;
 }
 
-.view-display-id-block .view-content .views-row .views-field-field-image {
-	height:400px;
-	overflow:hidden;
-}
-
-.view-display-id-block_1 .view-content .views-row .views-field-field-image {
-	height:150px;
-	overflow:hidden;
-}
-
-.front .view-display-id-block .view-content .views-row {
-	width:47%;
-	height:565px;
-}
-
-.view-id-map_filter_districts .attachment .view-id-map_filter_districts .views-row {
-	width:20%;
-	margin-right:1em;
-	position:relative;
-	float:left;
-}
-
 .pane-trail-metadata, .trailmeta2, .views-exposed-form label, .openlayers-popup {
 	font-size:.8em;
 }
 
-.page-learn-about-nature .view-learn-about-nature .views-row img {
-	width:125px;
-	height:125px;
-}
-
-.page-learn-about-nature .view-learn-about-nature .views-row {
-	margin:1em;
-}
-
-
 .pane-node-title .pane-content {
 	font-size: 36px;
-}
-
-
-.view-display-id-attachment_2 {
-	width:30%;
-	float:right;
-}
-
-.view-map-filter-leaflet .view-filters,
-.view-map-filter-activity .view-filters {
-	float:right;
-	width:30%;
-}
-
-.view-map-filter-activity .form-type-textfield #edit-title {
-	width:150px;
 }
 
 .block-menu-navigation-menu ul li {
@@ -80,20 +33,65 @@ ul#main-menu li {
 	margin-right:0;
 }
 
-.responsive-layout-normal h2.site-title a,
-.responsive-layout-normal h1.site-title a {
+h2.site-title a,
+h1.site-title a {
 	font-size:30px;
+}
+
+.node-type-trail .pane-trail-system-video iframe,
+.node-type-metric-entry .pane-node-field-video-embed-link iframe,
+.page-node-118 iframe  {
+	width:640px;
+}
+
+/*FRONT PAGE*/ 
+
+.front .view-display-id-block .view-content .views-row .views-field-field-image {
+	height:400px;
+	overflow:hidden;
+}
+
+.front .view-display-id-block_1 .view-content .views-row .views-field-field-image {
+	height:150px;
+	overflow:hidden;
+}
+
+.front .view-display-id-block .view-content .views-row {
+	width:47%;
+	height:565px;
+}
+
+/*BROWSE TRAILS*/
+
+#block-views-map-filter-districts-block-1 {
+	width:100%;
+}
+
+.block-map-filter-districts-block-1 .views-row {
+	width:25%;
+	margin-right:0;
+	position:relative;
+	float:none;
+}
+
+.view-display-id-attachment_2 {
+	width:28%;
+	float:right;
+}
+
+.view-map-filter-leaflet .view-filters,
+.view-map-filter-activity .view-filters {
+	float:right;
+	width:30%;
+}
+
+.view-map-filter-activity .form-type-textfield #edit-title {
+	width:150px;
 }
 
 #views-submit-button {
 	clear:both;
 }
-
-.node-type-trail .pane-trail-system-video iframe,
-.node-type-metric-entry .pane-node-field-video-embed-link iframe  {
-	width:640px;
-}
-
 
 #leaflet-map {
 	width:65%;
@@ -101,7 +99,57 @@ ul#main-menu li {
 
 
 
-.view-metric-images img { /*images*/
+
+
+/*LEARN ABOUT NATURE*/
+
+.page-learn-about-nature .view-learn-about-nature .views-row img {
 	width:125px;
 	height:125px;
+}
+
+.page-learn-about-nature .view-learn-about-nature .views-row {
+	margin:1em;
+}
+
+.view-metric-images img {
+	width:125px;
+	height:125px;
+}
+
+/* BROWSE TRAILS MAP */
+ul#nfnc-browse-trails-map {
+    background-position: 0 0;
+    width: 640px;
+    height: 392px;
+}
+
+#nfnc-browse-trails-cheoah {
+    top: 253px;
+    left: 71px;
+}
+
+#nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link {
+    background-position: -642px 0;
+    width: 110px;
+    padding: 70px 0 0 !important;
+}
+
+#nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link:hover {
+    background-position: -642px -160px;
+}
+
+#nfnc-browse-trails-tusquitee {
+    top: 302px;
+    left: 9px;
+}
+
+#nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link {
+    background-position: -755px 0;
+    width: 190px;
+    padding: 85px 0 0 !important;
+}
+
+#nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link:hover {
+    background-position: -755px -192px;
 }

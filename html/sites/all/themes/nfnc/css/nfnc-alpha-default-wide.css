@@ -1,5 +1,6 @@
 /* This file will hold styles that are loaded using the same media query as the wide grid. */
 
+
 input.form-submit {
 	font:italic 1.15em Georgia, "Times New Roman", Times, serif;
 }
@@ -7,21 +8,6 @@ input.form-submit {
 ul#main-menu li {
 	margin-left:2.2em;
 	margin-right:2.2em;
-}
-
-.view-display-id-block .view-content .views-row .views-field-field-image {
-	height:400px;
-	overflow:hidden;
-}
-
-.view-display-id-block_1 .view-content .views-row .views-field-field-image {
-	height:150px;
-	overflow:hidden;
-}
-
-.front .view-display-id-block .view-content .views-row {
-	width:48%;
-	height:565px;
 }
 
 .pane-trail-metadata, .trailmeta2, .views-exposed-form label, .openlayers-popup {
@@ -32,10 +18,92 @@ ul#main-menu li {
 	font-size: 36px;
 }
 
+.block-menu-navigation-menu ul li {
+	font-size:1.6em;
+}
+
+h1.site-title a,
+h2.site-title a {
+	font-size:36px;
+}
+
+h6.site-slogan {
+	font-size:1.1em;
+}
+
+.logo-img {
+	margin-right:.8em;
+}
+
+.logo-img img {
+	width:50px;
+	height:56px;
+}
+
+.node-type-trail .pane-trail-system-video iframe,
+.node-type-metric-entry .pane-node-field-video-embed-link iframe,
+.page-node-118 iframe  {
+	width:640px;
+}
+
+/*FRONT PAGE*/
+
+.front .view-display-id-block .view-content .views-row .views-field-field-image {
+	height:400px;
+	overflow:hidden;
+}
+
+.front .view-display-id-block_1 .view-content .views-row .views-field-field-image {
+	height:150px;
+	overflow:hidden;
+}
+
+.front .view-display-id-block .view-content .views-row {
+	width:48%;
+	height:565px;
+}
+
+/*BROWSE TRAILS*/
+
 .view-display-id-attachment_2 {
 	width:40%;
 	float:right;
 }
+
+.view-map-filter-leaflet .view-filters,
+.view-map-filter-activity .view-filters {
+	float:right;
+	width:40%;
+}
+
+.view-display-id-block_1 {
+	width:100%;
+	float:left;
+	position:relative;
+	display:inline-block;
+}
+
+.block-map-filter-districts-block-1 {
+	width:25%;
+}
+
+.block-block-10 {
+	display:inline-block;
+	position:relative;
+}
+
+.view-display-id-block_1 .views-row {
+	width:50%;
+	margin-right:1em;
+	position:relative;
+	float:left;
+}
+
+#leaflet-map {
+	width:55%;
+}
+
+/*LEARN ABOUT NATURE*/
 
 .page-learn-about-nature .view-learn-about-nature .views-row {
 	margin:1em;
@@ -46,43 +114,44 @@ ul#main-menu li {
 	height:125px;
 }
 
-.view-map-filter-leaflet .view-filters,
-.view-map-filter-activity .view-filters {
-	float:right;
-	width:40%;
-
-}
-
-.view-id-map_filter_districts .attachment .view-id-map_filter_districts .views-row {
-	width:20%;
-	margin-right:1em;
-	position:relative;
-	float:left;
-}
-
-.block-menu-navigation-menu ul li {
-	font-size:1.6em;
-}
-
-.node-type-trail .pane-trail-system-video iframe,
-.node-type-metric-entry .pane-node-field-video-embed-link iframe  {
-	width:640px;
-}
-
-h6.site-slogan {
-	font-size:1.1em;
-}
-
-.logo-img img {
-	width:50px;
-	height:56px;
-}
-
-.view-metric-images img { /*images*/
+.view-metric-images img {
 	width:125px;
 	height:125px;
 }
 
-#leaflet-map {
-	width:55%;
+/* BROWSE TRAILS MAP */
+ul#nfnc-browse-trails-map {
+    background-position: 0 0;
+    width: 640px;
+    height: 392px;
+}
+
+#nfnc-browse-trails-cheoah {
+    top: 253px;
+    left: 71px;
+}
+
+#nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link {
+    background-position: -642px 0;
+    width: 110px;
+    padding: 70px 0 0 !important;
+}
+
+#nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link:hover {
+    background-position: -642px -160px;
+}
+
+#nfnc-browse-trails-tusquitee {
+    top: 302px;
+    left: 9px;
+}
+
+#nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link {
+    background-position: -755px 0;
+    width: 190px;
+    padding: 85px 0 0 !important;
+}
+
+#nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link:hover {
+    background-position: -755px -192px;
 }

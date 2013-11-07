@@ -3,21 +3,6 @@
  * (essentially anything smaller than the narrow grid size, and media query declares. 
  */
 
-.responsive-layout-mobile .view-front-page-internal-links .view-content .views-row {
-	display:inline-block;
-	position:relative;
-	float:left;
-	width:100%;
-	margin-top:1em;
-	margin-left:0;
-	overflow:hidden;
-	height:auto;
-	text-align:left;
-}
-
-.responsive-layout-mobile .view-front-page-internal-links.view-display-id-block .view-content .views-row {
-	font-size:.6em;
-}
 
 .responsive-layout-mobile #region-branding {
 	clear:both;
@@ -25,10 +10,6 @@
 
 .responsive-layout-mobile #zone-content {
 	padding-left:0;
-}
-
-#search-block-form {
-	display:none;
 }
 
 .responsive-layout-mobile .logo-img img {
@@ -46,6 +27,76 @@ h6.site-slogan {
 	font-size:1em;
 }
 
+.pane-node-title .pane-content {
+	font-size: 28px;
+}
+
+.responsive-layout-mobile .pane-trail-metadata, 
+.responsive-layout-mobile .trailmeta2, 
+.responsive-layout-mobile .views-exposed-form label,
+.responsive-layout-mobile .openlayers-popup {
+	font-size:.6em;
+}
+
+.responsive-layout-mobile #region-content {
+	padding:1em;
+}
+
+.responsive-layout-mobile .block-menu-navigation-menu ul li {
+	font-size:1em;
+}
+
+.responsive-layout-mobile .region-footer-second p {
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+}
+
+@media (max-width: 480px) {
+	 .node-type-trail .pane-trail-system-video iframe,
+	 .node-type-metric-entry .pane-node-field-video-embed-link iframe,
+	.page-node-118 iframe {
+	  width:265px !important;
+	  height:198px;
+	}
+}
+
+/* fixes margin on page title */
+.responsive-layout-mobile.node-type-trail .pane-node-title .pane-content {
+    margin-bottom: 0;
+}
+
+/* hides nav submenus. Nav bar was so tall you had to scroll to see what page you were on */
+.responsive-layout-mobile .block-menu-menu-navigation-menu ul.menu ul.menu {
+    display: none;
+}
+
+.responsive-layout-mobile .block-menu-menu-navigation-menu ul.menu li.last {
+    padding-bottom: 0;
+}
+
+/* centers nav menu */
+.responsive-layout-mobile .block-menu-menu-navigation-menu ul.menu {
+    text-align: center;
+}
+
+/*FRONT PAGE*/
+
+.responsive-layout-mobile.front .view-front-page-internal-links .view-content .views-row {
+	display:inline-block;
+	position:relative;
+	float:left;
+	width:100%;
+	margin-top:1em;
+	margin-left:0;
+	overflow:hidden;
+	height:auto;
+	text-align:left;
+}
+
+.responsive-layout-mobile.front .view-front-page-internal-links.view-display-id-block .view-content .views-row {
+	font-size:.6em;
+}
+
 .responsive-layout-mobile.front .views-field-field-image {
 	height:150px;
 	overflow:hidden;
@@ -59,34 +110,11 @@ h6.site-slogan {
 	margin:1em;
 }
 
-.pane-node-title .pane-content {
-	font-size: 28px;
-}
-
-
-.responsive-layout-mobile .pane-trail-metadata, 
-.responsive-layout-mobile .trailmeta2, 
-.responsive-layout-mobile .views-exposed-form label,
-.responsive-layout-mobile .openlayers-popup {
-	font-size:.6em;
-}
-
-.responsive-layout-mobile #region-content {
-	padding:1em;
-}
+/*BROWSE TRAILS*/
 
 .responsive-layout-mobile #leaflet-map {
 	width:100%;
 	margin-bottom:1em;
-}
-
-.responsive-layout-mobile #quicktabs-trail_tabs .item-list ul.quicktabs-tabs.quicktabs-style-basic li a {
-	font: bold 10px/12px Arial !important;
-}
-
-.responsive-layout-mobile .openlayers-map,
-.responsive-layout-mobile .openlayers-container {
-	height:250px !important;
 }
 
 .responsive-layout-mobile .view-display-id-attachment_2 {
@@ -107,28 +135,29 @@ h6.site-slogan {
 	font-size:.65em;
 }
 
-
-.responsive-layout-mobile .panels-flexible-region-1-trail_system_info {
-	margin-left:0;
-	margin-right:0;
-}
-
 .responsive-layout-mobile .view-id-map_filter_districts .attachment .view-id-map_filter_districts .views-row {
 	width:100%;
-}
-
-.responsive-layout-mobile .block-menu-navigation-menu ul li {
-	font-size:1em;
-}
-
-.responsive-layout-mobile .view-metric-images img { /*images*/
-	width:75px;
-	height:75px;
 }
 
 .responsive-layout-mobile .view-id-map_filter_districts .attachment .view-id-map_filter_districts {
 	padding:0;
 	margin-top:1em;
+}
+
+/*TRAIL PAGES*/
+
+.responsive-layout-mobile #quicktabs-trail_tabs .item-list ul.quicktabs-tabs.quicktabs-style-basic li a {
+	font: bold 10px/12px Arial !important;
+}
+
+.responsive-layout-mobile .openlayers-map,
+.responsive-layout-mobile .openlayers-container {
+	height:250px !important;
+}
+
+.responsive-layout-mobile .panels-flexible-region-1-trail_system_info {
+	margin-left:0;
+	margin-right:0;
 }
 
 .responsive-layout-mobile .panels-flexible-region-1-metadata,
@@ -137,7 +166,7 @@ h6.site-slogan {
 	clear:both;
 }
 
-
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-tabs-inside,
 .responsive-layout-mobile.node-type-trail .panels-flexible-row-1-1-inside .panels-flexible-region-1-map,
 .responsive-layout-mobile.node-type-trail .panels-flexible-row-1-1-inside .panels-flexible-region-1-image_and_graph_content {
 	width:100% !important;
@@ -145,11 +174,101 @@ h6.site-slogan {
 	margin-top:1em;
 }
 
-@media (max-width: 480px) {
-	 .node-type-trail .pane-trail-system-video iframe,
-	 .node-type-metric-entry .pane-node-field-video-embed-link iframe {
-	  width:265px !important;
-	  height:198px;
-	}
-	
+/* fixes icons on trail pages */
+.responsive-layout-mobile .panels-flexible-region-1-iconography-inside {
+    padding-left: 0;
+}
+
+.responsive-layout-mobile .panels-flexible-region-1-iconography-inside .field-type-image .field-item {
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+/* fixes display of green metadata box */
+.responsive-layout-mobile .pane-trail-metadata {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-metadata-inside,
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-map-inside {
+    padding-right: 0;
+}
+
+/* fixes display of tabbed box */
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-tabs-inside {
+    padding-left: 0;
+}
+
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-tabs-inside .view-footer p,
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-tabs-inside .view-footer h3 {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* jcarousel fixes */
+.responsive-layout-mobile .jcarousel-container-horizontal {
+    max-width: 100%;
+}
+
+/* fixes on trail system information */
+.responsive-layout-mobile.node-type-trail .panels-flexible-region-1-trail_system_info {
+    width: 100%;
+    margin-top: 0;
+}
+
+.responsive-layout-mobile.node-type-trail .pane-trail-system-video h2.pane-title {
+    margin-bottom: 0.5em;
+}
+
+.responsive-layout-mobile.node-type-trail .pane-node-title .pane-content {
+    font-size: 22px;
+}
+
+.responsive-layout-mobile.node-type-trail .pane-trail-system-video h2.pane-title {
+    font-size: 20px;
+}
+
+/*LEARN ABOUT NATURE*/
+
+.responsive-layout-mobile .view-metric-images img {
+	width:75px;
+	height:75px;
+}
+
+/* BROWSE TRAILS MAP */
+.responsive-layout-mobile ul#nfnc-browse-trails-map {
+    background-position: -482px -395px;
+    width: 294px;
+    height: 180px;
+}
+
+.responsive-layout-mobile #nfnc-browse-trails-cheoah {
+    top: 117px;
+    left: 33px;
+}
+
+.responsive-layout-mobile #nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link {
+    background-position: -642px -127px;
+    width: 50px;
+    padding: 33px 0 0 !important;
+}
+
+.responsive-layout-mobile #nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link:hover {
+    background-position: -642px -287px;
+}
+
+.responsive-layout-mobile #nfnc-browse-trails-tusquitee {
+    top: 139px;
+    left: 5px;
+}
+
+.responsive-layout-mobile #nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link {
+    background-position: -755px -152px;
+    width: 87px;
+    padding: 39px 0 0 !important;
+}
+
+.responsive-layout-mobile #nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link:hover {
+    background-position: -755px -345px;
 }
