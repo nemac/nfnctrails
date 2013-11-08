@@ -193,6 +193,10 @@ h6.site-slogan {
 	margin-top:1em;
 }
 
+.responsive-layout-mobile.context-browse-trails .field-name-body h3 {
+    font-size: 13px;
+}
+
 /* fixes icons on trail pages */
 .responsive-layout-mobile .panels-flexible-region-1-iconography-inside {
     padding-left: 0;
@@ -240,7 +244,10 @@ h6.site-slogan {
     margin-bottom: 0.5em;
 }
 
-.responsive-layout-mobile.node-type-trail .pane-node-title .pane-content {
+.responsive-layout-mobile.node-type-trail .pane-node-title .pane-content,
+.responsive-layout-mobile.node-type-trailhead .pane-node-title .pane-content,
+.responsive-layout-mobile.node-type-trail-system .pane-node-title .pane-content,
+.responsive-layout-mobile #page-title {
     font-size: 22px;
 }
 
@@ -248,11 +255,35 @@ h6.site-slogan {
     font-size: 20px;
 }
 
+/* TRAIL SYSTEM PAGES */
+.responsive-layout-mobile.node-type-trail-system .field-name-body {
+    margin-top: 0;
+}
+
+.responsive-layout-mobile.node-type-trail-system .panels-flexible-row-2-main-row-inside .panels-flexible-region {
+    float: none;
+    width: 100%;
+}
+
+/* TRAILHEADS */
+.responsive-layout-mobile.node-type-trailhead .panels-flexible-row.panels-flexible-row-3-4 {
+    padding-bottom: 0px;
+}
+
 /*LEARN ABOUT NATURE*/
 
 .responsive-layout-mobile .view-metric-images img {
 	width:75px;
 	height:75px;
+}
+
+.responsive-layout-mobile.node-type-metric-entry .field-name-body h3 {
+    font-size: 18px;
+}
+
+.responsive-layout-mobile.node-type-metric-entry .field-name-body h3,
+.responsive-layout-mobile.node-type-metric-entry .field-name-body p {
+    margin-bottom: 1em;
 }
 
 /* BROWSE TRAILS MAP */
