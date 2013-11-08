@@ -110,6 +110,11 @@ h6.site-slogan {
 	margin:1em;
 }
 
+/* hides search bar on the front page */
+.responsive-layout-mobile.front #block-search-form {
+	display: none;
+}
+
 /*BROWSE TRAILS*/
 
 .responsive-layout-mobile #leaflet-map {
@@ -117,7 +122,15 @@ h6.site-slogan {
 	margin-bottom:1em;
 }
 
+/* this block is not needed anymore maybe? */
 .responsive-layout-mobile .view-display-id-attachment_2 {
+	width:100%;
+	float:none;
+	clear:both;
+	margin:0;
+}
+
+.responsive-layout-mobile .block-views-map-filter-districts-block-1 {
 	width:100%;
 	float:none;
 	clear:both;
@@ -139,7 +152,13 @@ h6.site-slogan {
 	width:100%;
 }
 
+/* this block is not needed anymore maybe? */
 .responsive-layout-mobile .view-id-map_filter_districts .attachment .view-id-map_filter_districts {
+	padding:0;
+	margin-top:1em;
+}
+
+.responsive-layout-mobile .block-views-map-filter-districts-block-1 {
 	padding:0;
 	margin-top:1em;
 }

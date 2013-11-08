@@ -64,14 +64,15 @@ h1.site-title a {
 /*BROWSE TRAILS*/
 
 #block-views-map-filter-districts-block-1 {
-	width:100%;
+    margin-top: 1em;
+    width:100%;
 }
 
 .block-map-filter-districts-block-1 .views-row {
-	width:25%;
-	margin-right:0;
+	width:45%;
+	margin-right:1em;
 	position:relative;
-	float:none;
+	float:left;
 }
 
 .view-display-id-attachment_2 {
