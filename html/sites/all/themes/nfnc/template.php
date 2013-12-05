@@ -11,7 +11,6 @@
  * for more information on this topic.
  */
 
-
 function nfnc_preprocess_page(&$variables) {
 
   // add css only on front page
@@ -63,12 +62,18 @@ function nfnc_field__field_elevation_mugl__trail($variables) {
   // Render the items.
   foreach ($variables['items'] as $delta => $item) {
     $classes = 'multigraph';
-    $attributes = '';
-    $attributes .= 'data-src="' . base_path() . variable_get('file_public_path', conf_path() . '/files') . '/' . $item['#file']->filename . '"';
-    $attributes .= ' data-swf="' . base_path() . drupal_get_path('theme', 'nfnc') . '/flash/Multigraph.swf"';
-    $attributes .= ' data-width=445"';
-    $attributes .= ' data-height="240"';
-    $output .= '<div style="width:445px; height:240px;" class="' . $classes . '"' . $attributes . '></div>';
+    $commonattributes = '';
+    $commonattributes .= 'data-src="' . base_path() . variable_get('file_public_path', conf_path() . '/files') . '/' . $item['#file']->filename . '"';
+    $commonattributes .= ' data-swf="' . base_path() . drupal_get_path('theme', 'nfnc') . '/flash/Multigraph.swf"';
+    $mobileattributes = ' data-width=\'293\' data-height=\'150\'';
+    $mobilestyling = 'width:293px; height:150px;';
+    $output .= '<div style="' . $mobilestyling . '" class="mobile-multigraph ' . $classes . '"' . $commonattributes . $mobileattributes . '></div>';
+    $narrowattributes = ' data-width=\'514\' data-height=\'200\'';
+    $narrowstyling = 'width:514px; height:200px;';
+    $output .= '<div style="' . $narrowstyling . '" class="narrow-multigraph ' . $classes . '"' . $commonattributes . $narrowattributes . '></div>';
+    $wideattributes = ' data-width=\'693\' data-height=\'200\'';
+    $widestyling = 'width:693px; height:200px;';
+    $output .= '<div style="' . $widestyling . '" class="wide-multigraph ' . $classes . '"' . $commonattributes . $wideattributes . '></div>';
   }
 
   return $output;

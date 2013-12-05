@@ -1,10 +1,12 @@
 name = NFNC Trails
-description = Default XHTML starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. Information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>.
+description = <a href="http://himer.us/omega-docs">Omega Documentation</a>.
 core = 7.x
 engine = phptemplate
 screenshot = screenshot.png
 base theme = omega
 
+; SCRIPTS
+scripts[] = js/browse-trails-popup.js
 
 ; REQUIRED CORE REGIONS
 
@@ -55,9 +57,16 @@ css[global.css][name] = Your custom global styles
 css[global.css][description] = This file holds all the globally active custom CSS of your theme.
 css[global.css][options][weight] = 10
 
+css[print.css][name] = Print
+css[print.css][description] = This file holds all the custom print CSS of your theme.
+css[print.css][options][weight] = -10
+css[print.css][options][media] = print
+
 css[nfnc-alpha-mobile.css][name] = Mobile
 css[nfnc-alpha-mobile.css][description] = Stylesheet for mobile styles.
 css[nfnc-alpha-mobile.css][options][weight] = -20
+
+
 
 ; THEME SETTINGS (DEFAULTS)
 

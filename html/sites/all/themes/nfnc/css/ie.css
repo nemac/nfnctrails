@@ -1,0 +1,36 @@
+/* BROWSE TRAILS MAP */
+ul#nfnc-browse-trails-map {
+    background-position: -965px -790px;
+    width: 588px;
+    height: 361px;
+}
+
+#nfnc-browse-trails-cheoah {
+    top: 234px;
+    left: 66px;
+}
+
+#nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link {
+    background-position: -1285px -255px;
+    width: 101px;
+    padding: 64px 0 0 !important;
+}
+
+#nfnc-browse-trails-cheoah .nfnc-browse-trails-map-link:hover {
+    background-position: -1285px -575px;
+}
+
+#nfnc-browse-trails-tusquitee {
+    top: 278px;
+    left: 8px;
+}
+
+#nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link {
+    background-position: -1510px -305px;
+    width: 174px;
+    padding: 78px 0 0 !important;
+}
+
+#nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link:hover {
+    background-position: -1510px -690px;
+}

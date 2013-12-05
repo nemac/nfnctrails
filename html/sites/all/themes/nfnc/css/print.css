@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*general things that need to be hidden*/
+#toolbar, #region-menu, .not-front #region-sidebar-first, ul.tabs {
+	display:none;
+}
+
+/*front page things that need to be hidden*/
+.front .views-field-field-image {
+	display:none;
+}
+
+div {
+	background:none;
+}
+
+#zone-content a:after{
+	content:" (" attr(href) ") ";
+	font-size:0.8em;
+	font-weight:normal;
+}
+
+#zone-content img a:after{
+	display:none;
+}
+
+html,body,#section-header,#section-content div {
+	background:none;
+}
+
+h1.site-title a, h2.site-title a, 
+h6.site-slogan {
+	color:#334111!important;
+}
+
+
+.front #block-views-front-page-internal-links-block .views-row h2 {
+	border-bottom: thin dotted #334111;
+	margin-top: 0;
+	margin-bottom: 1em;
+	font-size: 18px;
+}
+
+.logo-img {
+	display:none;
+}
+
+.logo-img img {
+	width: 50px;
+	height: 56px;
+}
+
+.front #block-system-main .content p, .context-home #block-system-main .content p,
+.front .view-display-id-block .view-content .views-row h2 a {
+	color:#334111;
+	font-size:1em;
+}
+
+.front .view-display-id-block .view-content .views-row {
+	color:#333;
+	font-size:1em;
+}

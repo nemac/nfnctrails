@@ -283,7 +283,7 @@ h2.pane-title {
     border-top-right-radius: 1em;
 }
 
-.popup-img {
+.popup-img, .popup-txt {
 	clear:both;
 }
 
@@ -644,7 +644,7 @@ ul.nfnc-browse-trails-map li.nfnc-browse-trails-map-region .nfnc-browse-trails-m
     display: block !important;
 }
 
-#grownc-region-map-tooltip a {
+#nfnc-browse-trails-tooltip a {
     font-size: 13px;
     font-style: normal;
     font-variant: normal;
@@ -693,27 +693,53 @@ margin-top: 1em;
 	text-transform:lowercase;
 }
 
-td.views-field-field-trail-type {
-	padding:0;
-}
 
-td.trailmeta2 {
-	padding:.5em;
-	width:30%;
-}
-
-td .node-type {
+.view-map-filter-leaflet .trail-image,
+.view-map-filter-activity .trail-image {
+	position:relative;
 	display:inline-block;
 	float:left;
-	width:35px;
-	height:35px;
+	margin:0;
 }
 
-td.views-field-field-trail-type {
-	width:30%;
+.view-map-filter-leaflet .trail-type,
+.view-map-filter-activity .trail-type {
+	position:relative;
+	display:inline-block;
+	float:right;
+	white-space:nowrap;
 }
 
+.view-map-filter-leaflet .trail-type .node,
+.view-map-filter-activity .trail-type .node {
+	float:right;
+	display:inline-block;
+	position:relative;
+}
 
+.view-map-filter-leaflet .trailmeta2,
+.view-map-filter-activity .trailmeta2 {
+	margin:1em;
+}
+
+h3.trail-search-title {
+	display:block;
+
+}
+
+.view-map-filter-leaflet.view-display-id-attachment_1 .views-row,
+.view-map-filter-activity.view-display-id-attachment_1 .views-row {
+	margin-bottom:1em;
+	clear:both;
+	margin-top:1em;
+	min-height:165px;
+}
+
+.view-map-filter-leaflet .title-type,
+.view-map-filter-activity .title-type {
+	border-bottom:solid thin #ccc;
+	
+}
 
 #leaflet-map {
 	display:inline-block;
@@ -747,7 +773,6 @@ td.views-field-field-trail-type {
 	clear:both;
 }
 
-
 .panels-flexible-region-1-trail_system_info {
 	background:#f6f1e6;
 	padding:1em;
@@ -755,17 +780,14 @@ td.views-field-field-trail-type {
 	box-sizing:border-box;
 }
 
-
 .pane-trail-system-video h2.pane-title {
 	font-size:24px;
 }
-
 
 .node-type-trail h1.title,
 .node-type-trail-system h1.title {
 	display:none;
 }
-
 
 .context-browse-trails .views-field-field-image {
 	display:inline-block;
@@ -779,8 +801,7 @@ td.views-field-field-trail-type {
 
 .context-browse-trails .views-field-field-image img {
 	width:100%;
-	height:100%;
-	
+	height:100%;	
 }
 
 .block-map-filter-districts-block-1 {
@@ -800,11 +821,9 @@ td.views-field-field-trail-type {
 	background-color:#f6f1e6;
 }
 
-
 .block-map-filter-districts-block-1 .views-row .views-field-title h3 {
 	margin-bottom:0;
 }
-
 
 .page-node-119 .region-content-inner div {
 	vertical-align:top;

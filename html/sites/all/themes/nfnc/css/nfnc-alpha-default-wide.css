@@ -155,3 +155,9 @@ ul#nfnc-browse-trails-map {
 #nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link:hover {
     background-position: -755px -192px;
 }
+
+/* TRAILS */
+.mobile-multigraph,
+.narrow-multigraph {
+    display: none;
+}

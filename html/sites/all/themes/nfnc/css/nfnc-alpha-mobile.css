@@ -163,6 +163,10 @@ h6.site-slogan {
 	margin-top:1em;
 }
 
+.responsive-layout-mobile .view-map-filter-activity #leaflet-map {
+    height: 200px !important;
+}
+
 /*TRAIL PAGES*/
 
 .responsive-layout-mobile #quicktabs-trail_tabs .item-list ul.quicktabs-tabs.quicktabs-style-basic li a {
@@ -321,4 +325,10 @@ h6.site-slogan {
 
 .responsive-layout-mobile #nfnc-browse-trails-tusquitee .nfnc-browse-trails-map-link:hover {
     background-position: -755px -345px;
+}
+
+/* TRAILS */
+.responsive-layout-mobile .narrow-multigraph,
+.responsive-layout-mobile .wide-multigraph {
+    display: none;
 }
