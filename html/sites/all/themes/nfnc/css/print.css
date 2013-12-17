@@ -2,8 +2,13 @@
 /* CSS Document */
 
 /*general things that need to be hidden*/
-#toolbar, #region-menu, .not-front #region-sidebar-first, ul.tabs {
-	display:none;
+#toolbar, #region-menu, .not-front #region-sidebar-first, ul.tabs,
+.view-map-filter-leaflet > .view-content, .narrow-multigraph, .mobile-multigraph, iframe {
+	display:none !important;
+}
+
+.view-map-filter-leaflet .attachment .view-content {
+	display:block !important;
 }
 
 /*front page things that need to be hidden*/
@@ -13,6 +18,15 @@
 
 div {
 	background:none;
+}
+
+body {
+	font-size:.8em !important;
+}
+
+#section-header {
+	height:100px;
+	min-height:100px !important;
 }
 
 #zone-content a:after{
@@ -30,7 +44,8 @@ html,body,#section-header,#section-content div {
 }
 
 h1.site-title a, h2.site-title a, 
-h6.site-slogan {
+h6.site-slogan,
+.pane-trail-metadata, .pane-trail-metadata a {
 	color:#334111!important;
 }
 
@@ -60,4 +75,13 @@ h6.site-slogan {
 .front .view-display-id-block .view-content .views-row {
 	color:#333;
 	font-size:1em;
+}
+
+.quicktabs-hide {
+	display:block;
+}
+
+.panels-flexible-region-1-tabs {
+	width:100%;
+	float:right;
 }
