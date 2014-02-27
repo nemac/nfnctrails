@@ -238,9 +238,9 @@ Drupal.openlayers = {
           newFeatureSet = newFeatureObject;
         }
 
-        // Go through new features
-        for (var i in newFeatureSet) {
-          var newFeature = newFeatureSet[i];
+        // Go through new features and include fix for features in IE 8
+        for (var i = 0; i < newFeatureSet.length; i++) {
+           var newFeature = newFeatureSet[i];
 
           // Transform the geometry if the 'projection' property is different from the map projection
           if (feature.projection) {

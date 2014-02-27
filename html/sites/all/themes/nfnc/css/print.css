@@ -3,7 +3,11 @@
 
 /*general things that need to be hidden*/
 #toolbar, #region-menu, .not-front #region-sidebar-first, ul.tabs,
-.view-map-filter-leaflet > .view-content, .narrow-multigraph, .mobile-multigraph, iframe {
+.view-map-filter-leaflet > .view-content, .narrow-multigraph, .mobile-multigraph, iframe,
+#block-panels-mini-data-download-mini, #quicktabs-trail_tabs .item-list, .olLayerGoogleCopyright, .olButton,
+a#main-content, .panels-flexible-region-1-image_and_graph_content, .panels-flexible-region-1-additional_info,
+.block-menu-footer-menu, #leaflet-map, .views-exposed-form .views-exposed-widget .form-submit, .view-display-id-attachment_2,
+.node-type-special-site .field-name-field-images, node-type-trailhead .pane-trail-images, .node-type-trail .pane-2 {
 	display:none !important;
 }
 
@@ -21,7 +25,11 @@ div {
 }
 
 body {
-	font-size:.8em !important;
+	font: 10px/1.5 Verdana, Helvetica, Arial, sans-serif; !important;
+}
+
+body, #section-header {
+	padding-top:0 !important;
 }
 
 #section-header {
@@ -31,7 +39,7 @@ body {
 
 #zone-content a:after{
 	content:" (" attr(href) ") ";
-	font-size:0.8em;
+	font-size:.8em;
 	font-weight:normal;
 }
 
@@ -49,6 +57,18 @@ h6.site-slogan,
 	color:#334111!important;
 }
 
+h1.site-title a, h2.site-title a {
+	font-size: 24px;
+}
+
+h6.site-slogan {
+	font-size: 1em;
+	margin-top:0;
+}
+
+#zone-branding, #zone-header {
+	padding:0;
+}
 
 .front #block-views-front-page-internal-links-block .views-row h2 {
 	border-bottom: thin dotted #334111;
@@ -72,16 +92,128 @@ h6.site-slogan,
 	font-size:1em;
 }
 
+.front #zone-content {
+	margin-top:3em;
+}
+
 .front .view-display-id-block .view-content .views-row {
 	color:#333;
 	font-size:1em;
 }
 
+p {margin-bottom:10px;}
+
 .quicktabs-hide {
 	display:block;
+}
+
+#quicktabs-container-trail_tabs #quicktabs-tabpage-trail_tabs-0:before {
+	content:"Description";
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+	color: #666644;
+	margin-bottom: 10px;
+	font-size:20px;
+	border-bottom:solid thin #ccc;
+}
+
+#quicktabs-container-trail_tabs #quicktabs-tabpage-trail_tabs-0 h3 {
+	display:none;
+}
+
+#quicktabs-container-trail_tabs #quicktabs-tabpage-trail_tabs-2:before {
+	content:"Directions";
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+	color: #666644;
+	margin-bottom: 25px;
+	font-size:20px;
+	border-bottom:solid thin #ccc;
+}
+
+#quicktabs-trail_tabs #quicktabs-container-trail_tabs {
+	height:auto !important;
+	padding:0 !important;
+}
+
+.panels-flexible-region-1-trail_system_info {
+	padding:0 !important;
+	margin:0 !important;
 }
 
 .panels-flexible-region-1-tabs {
 	width:100%;
 	float:right;
+}
+
+.panels-flexible-region-1-map {
+	position:absolute;
+	top:35px;
+	right:0px;
+}
+
+.openlayers-container, .openlayers-map {
+	height:400px !important;
+}
+
+.panels-flexible-region-1-page_title {
+	height:50px;
+}
+
+.pane-trail-metadata {
+	margin-top:0;
+	padding-top:0;
+	height:350px;
+}
+
+.pane-trail-system-video h2.pane-title {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+	color: #666644;
+	margin-bottom:0;
+	font-size:20px !important;
+	border-bottom:solid thin #ccc;
+	display:inline-block;
+}
+
+#node-40 img, #node-41 img, #node-42 img {
+	height:0px !important;
+	width:0px !important;
+}
+
+#node-40 .field-item:after {
+	content:"hiking";
+	color: #666644;
+	margin:1em;
+	font-size:.8em;
+	text-transform:uppercase;
+}
+
+#node-41 .field-item:after {
+	content:"biking";
+	color: #666644;
+	margin:1em;
+	font-size:.8em;
+	text-transform:uppercase;
+}
+
+#node-42 .field-item:after {
+	content:"horse";
+	color: #666644;
+	margin:1em;
+	font-size:.8em;
+	text-transform:uppercase;
+}
+
+#edit-field-length-miles-2-value-wrapper {
+	width: 11em !important;
+}
+
+.page-node-119 .content {
+	display:none;
+}
+
+.page-node-119 #block-system-main:before {
+	content:"This content not compatible with print functionality. For best results, please view in a web browser.";
+	font-size:1em;
 }

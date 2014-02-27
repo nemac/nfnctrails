@@ -51,12 +51,20 @@ h6.site-slogan {
     margin-left: 0.5em;
 }
 
+.responsive-layout-mobile .node-type-trail .pane-2 {
+		display:none;
+	}
+
 @media (max-width: 480px) {
 	 .node-type-trail .pane-trail-system-video iframe,
 	 .node-type-metric-entry .pane-node-field-video-embed-link iframe,
 	.page-node-118 iframe {
 	  width:265px !important;
 	  height:198px;
+	}
+	
+	.node-type-trail .pane-2 {
+		display:none;
 	}
 }
 

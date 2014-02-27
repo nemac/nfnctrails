@@ -80,7 +80,7 @@ tr.even, tr.odd {
 #zone-branding, #zone-header {
 	text-align:left;
 	padding:10px;
-	background:none);
+	background:none;
 }
 
 .site-name-slogan {
@@ -225,6 +225,20 @@ h2.pane-title {
   /***********************************/
  /*TRAIL/TRAIL SYSTEM CONTENT STYLES*/
 /***********************************/
+
+.node-type-trail .pane-node-title,
+.node-type-trail .pane-2 {
+	float:left;
+}
+
+.node-type-trail .pane-2 {
+	margin-top:1.5em;
+	margin-left:1.5em;
+}
+
+.node-type-trail .panels-flexible-region-1-page_title-inside .panel-separator {
+	display:none;
+}
 
 .olMap .olMapViewport {
 	margin-top:1em;
@@ -476,8 +490,7 @@ td.trailmeta .trail-type {
 	background:#f6f1e6;
 	border:none;
 	padding:2em;
-	min-height:15em;
-	max-height:15em;
+	height:15em;
 	overflow:auto;
 }
 
@@ -526,7 +539,7 @@ td.trailmeta .trail-type {
 
 
 
-/*fricken image gallery*/
+/* image gallery*/
 .jcarousel-skin-default img {
 	margin:0;
 }

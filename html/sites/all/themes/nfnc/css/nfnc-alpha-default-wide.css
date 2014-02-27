@@ -161,3 +161,7 @@ ul#nfnc-browse-trails-map {
 .narrow-multigraph {
     display: none;
 }
+
+.node-type-trail .pane-2 {
+	display:inline-block;
+}

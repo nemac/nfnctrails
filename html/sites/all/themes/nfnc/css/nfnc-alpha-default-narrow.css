@@ -193,3 +193,7 @@ ul#nfnc-browse-trails-map {
 .responsive-layout-narrow .wide-multigraph {
     display: none;
 }
+
+.node-type-trail .pane-2 {
+	display:inline-block;
+}
