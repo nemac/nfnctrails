@@ -42,7 +42,7 @@ h6.site-slogan {
 	padding:1em;
 }
 
-.responsive-layout-mobile .block-menu-navigation-menu ul li {
+.responsive-layout-mobile #block-menu-menu-navigation-menu ul li {
 	font-size:1em;
 }
 
@@ -74,16 +74,16 @@ h6.site-slogan {
 }
 
 /* hides nav submenus. Nav bar was so tall you had to scroll to see what page you were on */
-.responsive-layout-mobile .block-menu-menu-navigation-menu ul.menu ul.menu {
+.responsive-layout-mobile #block-menu-menu-navigation-menu ul.menu ul.menu {
     display: none;
 }
 
-.responsive-layout-mobile .block-menu-menu-navigation-menu ul.menu li.last {
+.responsive-layout-mobile #block-menu-menu-navigation-menu ul.menu li.last {
     padding-bottom: 0;
 }
 
 /* centers nav menu */
-.responsive-layout-mobile .block-menu-menu-navigation-menu ul.menu {
+.responsive-layout-mobile #block-menu-menu-navigation-menu ul.menu {
     text-align: center;
 }
 
@@ -138,7 +138,7 @@ h6.site-slogan {
 	margin:0;
 }
 
-.responsive-layout-mobile .block-views-map-filter-districts-block-1 {
+.responsive-layout-mobile #block-views-map-filter-districts-block-1 {
 	width:100%;
 	float:none;
 	clear:both;
@@ -166,7 +166,7 @@ h6.site-slogan {
 	margin-top:1em;
 }
 
-.responsive-layout-mobile .block-views-map-filter-districts-block-1 {
+.responsive-layout-mobile #block-views-map-filter-districts-block-1 {
 	padding:0;
 	margin-top:1em;
 }
@@ -205,7 +205,7 @@ h6.site-slogan {
 	margin-top:1em;
 }
 
-.responsive-layout-mobile.context-browse-trails .field-name-body h3 {
+.responsive-layout-mobile.page-node-119 .field-name-body h3 {
     font-size: 13px;
 }
 

@@ -18,7 +18,7 @@ ul#main-menu li {
 	font-size: 36px;
 }
 
-.block-menu-navigation-menu ul li {
+#block-menu-menu-navigation-menu ul li {
 	font-size:1.6em;
 }
 
@@ -83,11 +83,11 @@ h6.site-slogan {
 	display:inline-block;
 }
 
-.block-map-filter-districts-block-1 {
+#block-views-map-filter-districts-block-1 {
 	width:220px !important;
 }
 
-.block-block-10 {
+#block-block-10 {
 	display:inline-block;
 	position:relative;
 }
@@ -97,6 +97,10 @@ h6.site-slogan {
 	margin-right:1em;
 	position:relative;
 	float:left;
+}
+
+#block-views-map-filter-districts-block-1 .views-row {
+	width:100%;
 }
 
 #leaflet-map {

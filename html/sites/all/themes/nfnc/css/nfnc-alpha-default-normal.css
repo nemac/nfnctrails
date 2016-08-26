@@ -22,7 +22,7 @@ ul#main-menu li {
 	font-size: 36px;
 }
 
-.block-menu-navigation-menu ul li {
+#block-menu-menu-navigation-menu ul li {
 	font-size:1.4em;
 }
 
@@ -68,7 +68,7 @@ h1.site-title a {
     width:100%;
 }
 
-.block-map-filter-districts-block-1 .views-row {
+#block-views-map-filter-districts-block-1 .views-row {
 	width:45%;
 	margin-right:1em;
 	position:relative;
