@@ -18,12 +18,25 @@ function session_cache_admin_config() {
     '#options' => array(
       SESSION_CACHE_STORAGE_COOKIE  => t("on the user's computer, in a cookie"),
       SESSION_CACHE_STORAGE_DB_CORE => t("on the server, on core's cache database"),
-      SESSION_CACHE_STORAGE_SESSION => t('on the server, in $_SESSION memory')
+      SESSION_CACHE_STORAGE_SESSION => t('on the server, in $_SESSION memory'),
     ),
-    '#description' => t('The first two mechanisms will NOT write to or read from $_SESSION so are generally a good choice when your site uses Varnish or similar page caching engine.')
+    '#description' => t('When using Varnish or similar page caching engine for anonymous users, do not use $_SESSION and have a page exclusion strategy in place.'),
   );
 
-  $expire_period = (float)variable_get('session_cache_expire_period');
+  $options = array(
+    SESSION_CACHE_COOKIE_FOR_SID => t('via their cookie'),
+    SESSION_CACHE_UID_FOR_SID => t('via their login id, via cookie for anonymous users (works cross-browser for authenticated users)'),
+    SESSION_CACHE_IP_ADDRESS_FOR_SID => t('via their IP address')
+  );
+  $form['session_cache_sid_source'] = array(
+    '#type' => 'radios',
+    '#title' => t('Method for identifying the user in database and file-based storage methods'),
+    '#options' => $options,
+    '#default_value' => variable_get('session_cache_sid_source', SESSION_CACHE_COOKIE_FOR_SID),
+    '#description' => t('None of the above apply to the $_SESSION and cookie storage mechanisms.'),
+  );
+
+  $expire_period = (float) variable_get('session_cache_expire_period');
   if ($expire_period <= 0.0) {
     $expire_period = SESSION_CACHE_DEFAULT_EXPIRATION_DAYS;
   }
@@ -33,14 +46,7 @@ function session_cache_admin_config() {
     '#title' => t('Expiration time for the database cache and cookies created via this module'),
     '#field_suffix' => t('days'),
     '#default_value' => $expire_period,
-    '#description' => t('You may use decimals, eg 0.25 equates to 6 hours.<br/>$_SESSION expiration is set via the server configuration. See the <em>sites/default/settings.php</em> file for details.')
-  );
-
-  $form['session_cache_use_uid_as_sid'] = array(
-    '#type' => 'checkbox',
-    '#title' => t("Remember the user's session from one browser to the next"),
-    '#default_value' => variable_get('session_cache_use_uid_as_sid', FALSE),
-    '#description' => t('Applies to authenticated users only and does not work for the cookie and $_SESSION storage mechanisms.')
+    '#description' => t('You may use decimals, eg 0.25 equates to 6 hours.<br/>$_SESSION expiration is set via the server configuration. See the <em>sites/default/settings.php</em> file for details.'),
   );
 
   return system_settings_form($form);

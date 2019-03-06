@@ -11,24 +11,38 @@
  * See the session_cache/README.txt for more info.
  */
 
-define('SESSION_CACHE_STORAGE_FILE',  5);
+define('SESSION_CACHE_FILE_STORAGE_FILE', 5);
 
-/*
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function session_cache_file_form_session_cache_admin_config_alter(&$form, &$form_state) {
-  $form['session_cache_storage_method']['#options'][SESSION_CACHE_STORAGE_FILE] =
-    t('on the server, as a small file');
+  $form['session_cache_storage_method']['#options'][SESSION_CACHE_FILE_STORAGE_FILE]
+    = t('on the server, as a small file');
 }
 
+/**
+ * Returns the directory path to where session cache files are stored.
+ *
+ * @param string $bin
+ *   The bin for which the path is to be returned, NULL for the base path.
+ *
+ * @return boolean|string
+ *   The existing or newly created path, or FALSE if there was an error.
+ */
 function session_cache_file_directory($bin = NULL) {
-  $path = variable_get('file_private_path');  // typically: sites/default/files/private
+  $path = variable_get('file_private_path');
+  // Typically $path == 'sites/default/files/private'.
   if (empty($path)) {
     drupal_set_message(t('Session Cache File: the <strong>Private file system path</strong> is not set. Please configure it <a href="@url">here</a>.',
       array('@url' => url('admin/config/media/file-system'))), 'warning', FALSE);
     return FALSE;
   }
-  $path = DRUPAL_ROOT . "/$path/session_cache";
+  // Use the absolute path as is, if it starts with a slash.
+  $path = preg_match('/^\//', $path) ? $path : DRUPAL_ROOT . "/$path";
+  $path .= '/session_cache';
+
+  // @todo Use file_prepare_directory(&$path, FILE_CREATE_DIRECTORY)
   if (!file_exists($path) && !@mkdir($path)) {
     drupal_set_message(t('Session cache directory %path could not be created.',
       array('%path' => $path)), 'error', FALSE);
@@ -49,7 +63,7 @@ function session_cache_file_directory($bin = NULL) {
  * Implements hook_session_cache_set().
  */
 function session_cache_file_session_cache_set($method, $bin, $data) {
-  if ($method != SESSION_CACHE_STORAGE_FILE) {
+  if ($method != SESSION_CACHE_FILE_STORAGE_FILE) {
     return;
   }
   $path = session_cache_file_directory($bin);
@@ -59,7 +73,7 @@ function session_cache_file_session_cache_set($method, $bin, $data) {
       drupal_set_message(t('Session cache file for empty session state could not be deleted.', array('%bin' => "$bin/$sid")), 'warning', FALSE);
     }
   }
-  elseif (!$path || !$sid || @file_put_contents("$path/$sid", serialize($data), FILE_EXISTS_REPLACE) === FALSE) {
+  elseif (!$path || !$sid || @file_put_contents("$path/$sid", json_encode($data), FILE_EXISTS_REPLACE) === FALSE) {
     drupal_set_message(t('Session cache file for session state %bin could not be written.', array('%bin' => "$bin/$sid")), 'error', FALSE);
   }
 }
@@ -68,14 +82,12 @@ function session_cache_file_session_cache_set($method, $bin, $data) {
  * Implements hook_session_cache_get().
  */
 function session_cache_file_session_cache_get($method, $bin) {
-  if ($method != SESSION_CACHE_STORAGE_FILE) {
+  if ($method != SESSION_CACHE_FILE_STORAGE_FILE) {
     return NULL;
   }
   $path = session_cache_file_directory($bin);
   $sid = session_cache_get_sid();
-  $data = $path && $sid && file_exists("$path/$sid")
-    ? unserialize(file_get_contents("$path/$sid"))
-    : NULL;
+  $data = $path && $sid && file_exists("$path/$sid") ? json_decode(file_get_contents("$path/$sid"), TRUE) : NULL;
   return $data;
 }
 
@@ -95,7 +107,7 @@ function session_cache_file_cron() {
             if (strpos($filename, '.') !== 0) {
               $filespec = "$session_cache_root/$bin_dir/$filename";
               $last_modified = filemtime($filespec);
-              if ($last_modified && (time() - $last_modified > SESSION_CACHE_DEFAULT_EXPIRATION_DAYS *24*60*60)) {
+              if ($last_modified && (time() - $last_modified > SESSION_CACHE_DEFAULT_EXPIRATION_DAYS * 24 * 60 * 60)) {
                 if (!@unlink($filespec)) {
                   drupal_set_message(t('Could not delete expired session cache file %file.', array('%file' => $filespec)), 'warning');
                 }
@@ -106,26 +118,4 @@ function session_cache_file_cron() {
       }
     }
   }
-}
-
-/**
- * Implements hook_requirements().
- *
- * $phase usually may equal one of 'install', 'runtime', 'update'.
- */
-function session_cache_file_requirements($phase) {
-  if ($phase != 'runtime') {
-    return;
-  }
-  $requirements['session_cache_file']['title'] = t('Session Cache File cache');
-  $session_cache_root = session_cache_file_directory();
-  if ($session_cache_root) {
-    $requirements['session_cache_file']['value'] = t('Installed at %path', array('%path' => $session_cache_root));
-    $requirements['session_cache_file']['severity'] = REQUIREMENT_OK;
-  }
-  else {
-    $requirements['session_cache_file']['value'] = t('Not set or could not be created. Check directory permissions or re-configure <a href="@url">here</a>.', array('@url' => url('admin/config/media/file-system')));
-    $requirements['session_cache_file']['severity'] = REQUIREMENT_ERROR;
-  }
-  return $requirements;
 }
