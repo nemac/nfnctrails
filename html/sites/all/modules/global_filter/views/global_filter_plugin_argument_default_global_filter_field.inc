@@ -16,38 +16,60 @@
  */
 class global_filter_plugin_argument_default_global_filter_field extends views_plugin_argument_default {
 
-  function get_argument() {
+  /**
+   * Define the one option we offer.
+   */
+  public function option_definition() {
+    $options = parent::option_definition();
+    $options['break_phrase_and'] = array('default' => FALSE, 'bool' => TRUE);
+    return $options;
+  }
+
+  /**
+   * Build the option form.
+   */
+  function options_form(&$form, &$form_state) {
+    parent::options_form($form, $form_state);
+    $form['break_phrase_and'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Process multiple filter values in <em>all of</em> (AND) rather than <em>one of</em> (OR) mode.'),
+      '#description' => t('Applies only when <strong>Allow multiple values</strong> is ticked in the <strong>More</strong> fieldset below.'),
+      '#default_value' => !empty($this->options['break_phrase_and']),
+    );
+  }
+
+  /**
+   * Get argument.
+   */
+  public function get_argument() {
     $field_name = $views_field_name = $this->argument->field;
     // Where $views_field_name refers to a field it equals one of:
     // '<field_name>_value', '<field_name>_tid' or '<field_name>_fid'
 
-    $exception_value = $this->argument->options['exception']['value']; // e.g. 'all'
+    $exception_value = $this->argument->options['exception']['value'];
 
     if (!($filter_key = global_filter_key_by_name($views_field_name))) {
-      // Not found as a node property, maybe it's a field.
-      if (empty($this->argument->definition['field_name'])) {
-        return $exception_value;
+      // Not found as a node property, maybe it's a field or taxonomy term.
+      // "Has taxonomy term ID" shows up with $views_field_name == 'tid'
+      if (isset($this->argument->definition['field_name'])) {
+        $field_name = $this->argument->definition['field_name'];
+        $filter_key = global_filter_key_by_name($field_name);
       }
-      $field_name = $this->argument->definition['field_name'];
-      /* @todo generalise this beyond AddressField
-      $field = field_info_field($field_name);
-      if ($field['type'] == 'addressfield') {
-        $column = drupal_substr($views_field_name, strlen($field_name) + 1);
+      else {
+        $filter_key = FALSE;
       }
-      */
-      $filter_key = global_filter_key_by_name($field_name);
     }
-
     if ($filter_key) {
       $arg = global_filter_get_session_value($field_name);
-      if (isset($arg) && $arg != '') {
-        if (is_array($arg) && $arg != array(0)) { // don't reduce array(0) to empty
+      if (isset($arg) && $arg != '' && $arg != array('')) {
+        // Don't reduce array(0) to empty.
+        if (is_array($arg) && $arg != array(0)) {
           // Removing empty entries may not be right when filter is numeric, i.e
           // a single digit 0 will be removed. However 00 will be interpreted
           // correctly as zero.
-          $arg = array_filter($arg /*, callback */);
+          $arg = array_filter($arg /* , callback */);
           // For Hierarchical select: always use deepest term. For other fields
-          // it doesn't matter
+          // it doesn't matter.
           $arg = array_reverse($arg);
           if (empty($arg)) {
             return $exception_value;
@@ -79,13 +101,16 @@ class global_filter_plugin_argument_default_global_filter_field extends views_pl
         $arg = $exception_value;
       }
       // If the argument is multi-valued (combo-box, checkboxes or text field
-      // with '+') string the values together separated by plus-signs.
+      // with '+' or ',') string the values together separated by the appropiate
+      // plus-sign (for OR, the default) or comma (for AND).
       // Note this requires the user to tick "Allow multiple values" after
       // expanding the "More" fieldset on the Contextual Filter configuration
       // panel. Otherwise only the first of the values will be used.
       // Note:
       // Be careful with spaces: have seen "very cheap" interpreted as "cheap"
-      return is_array($arg) ? implode('+', $arg) : $arg;
+      $is_and = !empty($this->argument->options['break_phrase']) &&
+        !empty($this->options['break_phrase_and']);
+      return is_array($arg) ? implode($is_and ? ',' : '+', $arg) : $arg;
     }
 
     // No filter key, field or node property not found.

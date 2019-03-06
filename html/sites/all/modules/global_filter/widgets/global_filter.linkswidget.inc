@@ -5,6 +5,9 @@
  * global_filter.linkswidget.inc
  */
 
+/**
+ * Create links widget.
+ */
 function global_filter_create_links_widget($filter_key, $options, &$form, &$form_state) {
   $post_it = global_filter_get_module_parameter('links_widget_via_post', TRUE);
   if ($post_it) {
@@ -21,7 +24,8 @@ function global_filter_create_links_widget($filter_key, $options, &$form, &$form
     $active = is_array($selected_value) ? in_array($value, $selected_value) : $value == $selected_value;
     $link_options = array(
       'attributes' => array('title' => $link_text),
-      'language' => $active ? NULL : $no_language // Hack to avoid every link being classed as 'active'
+      // Hack to avoid every link being classed as 'active'.
+      'language' => $active ? NULL : $no_language,
     );
     if (!isset($value)) {
       $value = '';
@@ -35,9 +39,7 @@ function global_filter_create_links_widget($filter_key, $options, &$form, &$form
     else {
       $link_options['query'] = array($name => $value);
     }
-    $link = $post_it
-      ? '<a href="" ' . drupal_attributes($link_options['attributes']) . ">$link_text</a>"
-      : l($link_text, $_GET['q'], $link_options);
+    $link = $post_it ? '<a href="" ' . drupal_attributes($link_options['attributes']) . ">$link_text</a>" : l($link_text, $_GET['q'], $link_options);
     $links .= ($active ? '<li class="active">' : '<li>') . $link . '</li>';
   }
   $form[$name]['#markup'] = '<ul class="global-filter-links ' . drupal_html_class(GLOBAL_FILTER_FILTER_KEY_PREFIX . "$filter_key-$name") . '">' . $links . '</ul>';

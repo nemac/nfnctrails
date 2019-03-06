@@ -46,7 +46,7 @@ div.olLayerDiv {
    display: block;
    position: absolute;
    left: 10px;
-   bottom: 40px;
+   bottom: 15px;
    font-size: xx-small;
 }
 .olControlScaleLineBottom {
@@ -133,6 +133,12 @@ div.olControlMousePosition {
 .olPopupContent {
     padding:5px;
     overflow: auto;
+}
+
+/* See #1978462 */
+.olPopup img {
+  max-width: 9999px;
+  max-height: 9999px;
 }
 
 .olControlNavigationHistory {
@@ -384,7 +390,7 @@ span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
 }
 /* positions */
 .olControlEditingToolbar {
-    right: 0;
+    right: 26px;
     top: 0;
 }
 .olControlNavToolbar {

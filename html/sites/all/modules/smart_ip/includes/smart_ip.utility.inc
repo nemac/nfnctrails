@@ -5,6 +5,9 @@
  * Utility routines to load the Smart IP database.
  */
 
+/******************************************************************************
+ * Maxmind CSV format                                                         *
+ ******************************************************************************/
 /**
  * Prepare a batch definition
  *
@@ -60,7 +63,7 @@ function smart_ip_get_zip($src = NULL, &$context) {
   variable_set('smart_ip_get_zip_done', FALSE);
   if (empty($src)) {
     // Fallback zip file
-    $src = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCity_CSV/GeoLiteCity_' . format_date(time(), 'custom', 'Ym') . '01.zip';
+    $src = SMART_IP_MAXMIND_LITE_CSV_DOWNLOAD_BASE_URL . '/GeoLiteCity_' . format_date(REQUEST_TIME, 'custom', 'Ym') . '01.zip';
   }
   if (isset($context['results']['#zip_file'])) {
     // Don't download, use manually uploaded zip file then 
@@ -96,10 +99,10 @@ function smart_ip_extract_zip(&$context) {
     // Accumulate the previous extracted csv files.
     $csv_files = file_scan_directory($path, '/\.csv$/');
     foreach ($csv_files as $csv_file) {
-      if (strpos($csv_file->filename, SMART_IP_LOCATION_CSV) !== FALSE) {
+      if (strpos($csv_file->filename, SMART_IP_MAXMIND_LOCATION_CSV) !== FALSE) {
         $context['results']['#location_csv_file'] = $csv_file->uri;
       }
-      elseif (strpos($csv_file->filename, SMART_IP_BLOCKS_CSV) !== FALSE) {
+      elseif (strpos($csv_file->filename, SMART_IP_MAXMIND_BLOCKS_CSV) !== FALSE) {
         $context['results']['#blocks_csv_file'] = $csv_file->uri;
       }
     }
@@ -128,10 +131,10 @@ function smart_ip_extract_zip(&$context) {
     $csv_files = file_scan_directory($path, '/\.csv$/');
     foreach ($csv_files as $csv_file) {
       file_unmanaged_move($csv_file->uri, $path . '/' . $csv_file->filename, FILE_EXISTS_REPLACE);
-      if (strpos($csv_file->filename, SMART_IP_LOCATION_CSV) !== FALSE) {
+      if (strpos($csv_file->filename, SMART_IP_MAXMIND_LOCATION_CSV) !== FALSE) {
         $context['results']['#location_csv_file'] = drupal_realpath($path . '/' . $csv_file->filename);
       }
-      elseif (strpos($csv_file->filename, SMART_IP_BLOCKS_CSV) !== FALSE) {
+      elseif (strpos($csv_file->filename, SMART_IP_MAXMIND_BLOCKS_CSV) !== FALSE) {
         $context['results']['#blocks_csv_file'] = drupal_realpath($path . '/' . $csv_file->filename);
       }
     }
@@ -222,7 +225,7 @@ function smart_ip_store_location_csv(&$context) {
       $estimated_progress = floor(100 * ($current_pointer / $last_pointer));
       // Update our progress information.
       $context['finished'] = $estimated_progress / 100;
-      $context['message']  = t('Parsing %location at line number: @value of @end', array(
+      $context['message']  = t('Parsing %location at file pointer number: @value of @end', array(
         '%location' => basename($context['results']['#location_csv_file']), 
         '@value'    => $current_pointer,
         '@end'      => $last_pointer,
@@ -306,7 +309,7 @@ function smart_ip_update_database(&$context) {
       $estimated_progress = floor(100 * ($current_pointer / $last_pointer)) - 2;
       // Update our progress information.
       $context['finished'] = $estimated_progress / 100;
-      $context['message']  = t('Parsing %blocks at line number: @value of @end', array(
+      $context['message']  = t('Parsing %blocks at file pointer number: @value of @end', array(
         '%blocks' => basename($context['results']['#blocks_csv_file']),
         '@value'  => $current_pointer,
         '@end'    => $last_pointer,
@@ -368,7 +371,7 @@ function smart_ip_update_database(&$context) {
       db_rename_table('smart_ip_update_table', 'smart_ip'); // 'RENAME TABLE {smart_ip_update_table} TO {smart_ip}'
       cache_clear_all('smart_ip:', 'cache_smart_ip', TRUE);
       variable_set('smart_ip_blocks_csv_pointer', 0);
-      variable_set('smart_ip_last_update', time());
+      variable_set('smart_ip_last_update', REQUEST_TIME);
       watchdog('smart_ip', 'Smart IP Database successfuly updated from maxmind.com.');
     }
   }
@@ -395,4 +398,183 @@ function smart_ip_update_db_batch_finished($success, $results, $operations, $ela
     $error_operation = reset($operations);
     drupal_set_message(t('Error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))), 'error');
   }
+}
+
+/******************************************************************************
+ * Maxmind binary format                                                      *
+ ******************************************************************************/
+/**
+ * Download a Maxmind binary database and activate it for use
+ */
+function smart_ip_maxmind_bin_db_update($license = '', $cron_run = FALSE, $force = FALSE) {
+  $data_source = variable_get('smart_ip_source', 'ipinfodb_service');
+  if ($data_source == 'maxmind_bin') {
+    $license  = !empty($license) ? $license : variable_get('smart_ip_maxmind_license', '');
+    $version  = variable_get('smart_ip_maxmind_bin_version', SMART_IP_MAXMIND_BIN_LICENSED_VERSION);  
+    $edition  = variable_get('smart_ip_maxmind_bin_edition', SMART_IP_MAXMIND_BIN_EDITION_CITY);
+    $filename = smart_ip_get_bin_source_filename($version, $edition);
+    $last_update_time = strtotime('midnight', variable_get('smart_ip_maxmind_bin_db_last_update', 0));
+  }
+  elseif ($data_source == 'maxmindgeoip2_bin') {
+    $license  = !empty($license) ? $license : variable_get('smart_ip_maxmind_geoip2_license', '');
+    $version  = variable_get('smart_ip_maxmind_geoip2_bin_version', SMART_IP_MAXMIND_BIN_LICENSED_VERSION);  
+    $edition  = variable_get('smart_ip_maxmind_geoip2_bin_edition', SMART_IP_MAXMIND_GEOIP2_BIN_EDITION_CITY);
+    $filename = smart_ip_get_geoip2_bin_source_filename($version, $edition);
+    $last_update_time = strtotime('midnight', variable_get('smart_ip_maxmind_geoip2_bin_db_last_update', 0));
+  }
+  
+  // Only update the binary database when it is out of date or under specific direction
+  if (!$force && smart_ip_maxmind_bin_db_up_to_date($version, $last_update_time)) {
+    return FALSE;
+  }
+
+  $path = file_stream_wrapper_uri_normalize('private://smart_ip');
+  if (!file_prepare_directory($path, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+    // Private file system path not defined then stop the process
+    drupal_set_message(t('Private file system path not defined. Please define the private file system path !here.',  array('!here' => l('here', 'admin/config/media/file-system'))), 'error');
+    return FALSE;
+  }
+  if ($version == SMART_IP_MAXMIND_BIN_LICENSED_VERSION) {
+    $url = SMART_IP_MAXMIND_BIN_DOWNLOAD_BASE_URL . '?' . http_build_query(array(
+      'edition_id' => $edition,
+      'suffix' => 'tar.gz',
+      'license_key' => $license,
+    ));
+    $gz_name = "$path/$filename.tar.gz";
+  }
+  else {
+    if ($data_source == 'maxmind_bin') {
+      if ($edition == SMART_IP_MAXMIND_BIN_EDITION_COUNTRY) {
+        $url = SMART_IP_MAXMIND_LITE_BIN_DOWNLOAD_BASE_URL . "/GeoLiteCountry/$filename.dat.gz";
+      }
+      else {
+        $url = SMART_IP_MAXMIND_LITE_BIN_DOWNLOAD_BASE_URL . "/$filename.dat.gz";
+      }
+      $gz_name = "$path/$filename.dat.gz";
+    }
+    elseif ($data_source == 'maxmindgeoip2_bin') {
+      $url = SMART_IP_MAXMIND_GEOIP2_LITE_BIN_DOWNLOAD_BASE_URL . "/$filename.gz";
+      $gz_name = "$path/$filename.gz";
+    }
+  }
+  
+  $fp = @fopen($url, 'r');
+  if ($fp === FALSE || file_put_contents($gz_name, $fp) === FALSE) {
+    if ($data_source == 'maxmind_bin') {
+      variable_set('smart_ip_maxmind_bin_db_update_error', t('MaxMind GeoIP Legacy binary database download failed'));
+      watchdog('smart_ip', 'MaxMind GeoIP Legacy bin database download failed', array(), WATCHDOG_WARNING);
+    }
+    elseif ($data_source == 'maxmindgeoip2_bin') {
+      variable_set('smart_ip_maxmind_geoip2_bin_db_update_error', t('MaxMind GeoIP2 binary database download failed'));
+      watchdog('smart_ip', 'MaxMind GeoIP2 bin database download failed', array(), WATCHDOG_WARNING);
+    }
+  	return FALSE;
+  }
+
+  try {   
+		if (class_exists('PharData')) {
+			$p = new PharData(drupal_realpath($gz_name));
+			$p->extractTo(drupal_realpath("$path/db_tmp"));
+		}
+		else {
+      throw new Exception('Server does not have Phar extension installed');
+		}
+  }
+  catch (Exception $e) {
+    drupal_mkdir('private://smart_ip/db_tmp');
+    $source_fp = gzopen(drupal_realpath($gz_name), 'rb');
+    if ($data_source == 'maxmind_bin') {
+      $target_fp = fopen(drupal_realpath("$path/db_tmp/$filename.dat"), 'w');
+    }
+    elseif ($data_source == 'maxmindgeoip2_bin') {
+      $target_fp = fopen(drupal_realpath("$path/db_tmp/$filename"), 'w');
+    }
+    while (!gzeof($source_fp)) {
+      $string = gzread($source_fp, 4096);
+      fwrite($target_fp, $string, strlen($string));
+    }
+    gzclose($source_fp);
+    fclose($target_fp);
+  }
+
+  try {
+    if ($data_source == 'maxmind_bin') {
+      $files = file_scan_directory("$path/db_tmp", "/^$filename.*\.dat$/");
+      $target_filename = "$filename.dat";
+    }
+    elseif ($data_source == 'maxmindgeoip2_bin') {
+      $files = file_scan_directory("$path/db_tmp", "/^$filename$/");
+      $target_filename = "$filename";
+    }
+    if (empty($files) || count($files) !== 1) {
+      throw new Exception("Unable to determine the contents of the db_tmp directory ($path/db_tmp)");
+    }
+    foreach ($files as $file) {
+      if (rename(drupal_realpath($file->uri), drupal_realpath("$path/$target_filename")) === FALSE) {
+        throw new Exception('Failed to activate the downloaded database');
+      }
+    }
+  }
+  catch (Exception $e) {
+    if ($data_source == 'maxmind_bin') {
+      $msg = t('Error during MaxMind GeoIP Legacy binary database download/extraction: %error', array('%error' => $e->getMessage()));
+      variable_set('smart_ip_maxmind_bin_db_update_error', $msg);
+    }
+    elseif ($data_source == 'maxmindgeoip2_bin') {
+      $msg = t('Error during MaxMind GeoIP2 binary database download/extraction: %error', array('%error' => $e->getMessage()));
+      variable_set('smart_ip_maxmind_geoip2_bin_db_update_error', $msg);
+    }
+    watchdog('smart_ip', $msg, array(), WATCHDOG_WARNING);
+    return FALSE;
+  }
+
+  if ($data_source == 'maxmind_bin') {
+    variable_set('smart_ip_maxmind_bin_db_update_error', NULL);
+    variable_set('smart_ip_maxmind_bin_db_last_update', REQUEST_TIME);
+    if ($cron_run) {
+      watchdog('smart_ip', 'The MaxMind GeoIP Legacy binary database has been updated via cron.');   
+    }
+    else {
+      watchdog('smart_ip', 'The MaxMind GeoIP Legacy binary database has been manually updated.');
+    }
+  }
+  elseif ($data_source == 'maxmindgeoip2_bin') {
+    variable_set('smart_ip_maxmind_geoip2_bin_db_update_error', NULL);
+    variable_set('smart_ip_maxmind_geoip2_bin_db_last_update', REQUEST_TIME);
+    if ($cron_run) {
+      watchdog('smart_ip', 'The MaxMind GeoIP2 binary database has been updated via cron.');   
+    }
+    else {
+      watchdog('smart_ip', 'The MaxMind GeoIP2 binary database has been manually updated.');
+    }
+  }
+  
+  file_unmanaged_delete($gz_name);
+  file_unmanaged_delete_recursive("$path/db_tmp");
+
+  return TRUE;
+}
+
+/**
+ * MaxMind updates the binary database every Tuesday, and we download
+ * every Wednesday for licensed version. Every first Tuesday of the month for
+ * lite or free version, and we download every first Wednesday of the month.
+ * That means that we only want to download if the current database was
+ * downloaded prior to the most recently available version.
+ */
+function smart_ip_maxmind_bin_db_up_to_date($version, $last_update_time) {
+  $time_now = strtotime('midnight', REQUEST_TIME);
+  if ($version == SMART_IP_MAXMIND_BIN_LICENSED_VERSION) {
+    $wednesday = strtotime('first Wednesday', $time_now);
+    if ($wednesday <= $time_now && $wednesday > $last_update_time) {
+      return FALSE;
+    }
+  }
+  elseif ($version == SMART_IP_MAXMIND_BIN_LITE_VERSION) {
+    $first_wed = strtotime('first Wednesday of this month', $time_now);
+    if ($first_wed <= $time_now && $first_wed > $last_update_time) {
+      return FALSE;
+    }
+  }
+  return TRUE;  
 }

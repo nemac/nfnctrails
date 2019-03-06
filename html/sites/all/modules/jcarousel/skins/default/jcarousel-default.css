@@ -13,11 +13,10 @@
 }
 
 .jcarousel-skin-default .jcarousel-container-horizontal {
-  max-width: 420px;
-  height: 225px;
+  width: 440px;
+  height: 102px;
   padding: 20px 40px;
   margin: auto;
-  overflow:hidden;
 }
 
 .jcarousel-skin-default .jcarousel-container-vertical {
@@ -39,8 +38,8 @@
 
 .jcarousel-skin-default .jcarousel-item {
   padding: 0;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   border: 1px solid #CCC;
   list-style: none;

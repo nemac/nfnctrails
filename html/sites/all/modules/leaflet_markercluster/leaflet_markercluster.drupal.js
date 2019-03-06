@@ -5,17 +5,20 @@
 
 (function ($) {
 
+  var LEAFLET_MARKERCLUSTER_EXCLUDE_FROM_CLUSTER = 0x01;
+
   Drupal.behaviors.leaflet = { // overrides same behavior in leaflet/leaflet.drupal.js
     attach: function(context, settings) {
+      var start = (new Date()).getTime();
 
       $(settings.leaflet).each(function () {
-        // bail if the map already exists
+        // skip to the next iteration if the map already exists
         var container = L.DomUtil.get(this.mapId);
-        if (container._leaflet) {
-          return false;
+        if (!container || container._leaflet_id) {
+          return;
         }
 
-        // load a settings object with all of our map and markercluster settings
+        // load a settings object with all of our map settings
         var settings = {};
         for (var setting in this.map.settings) {
           settings[setting] = this.map.settings[setting];
@@ -23,6 +26,7 @@
 
         // instantiate our new map
         var lMap = new L.Map(this.mapId, settings);
+        lMap.bounds = [];
 
         // add map layers
         var layers = {}, overlays = {};
@@ -30,19 +34,54 @@
         for (var key in this.map.layers) {
           var layer = this.map.layers[key];
           var map_layer = Drupal.leaflet.create_layer(layer, key);
+          //layers[key] = map_layer;
 
-          layers[key] = map_layer;
-
-          // add the layer to the map
-          if (i >= 0) {
-            lMap.addLayer(map_layer);
+          // Distinguish between "base layers" and "overlays".
+          // Fall back to "base" in case "layer_type" has not been defined in
+          // hook_leaflet_map_info()
+          layer.layer_type = (typeof layer.layer_type === 'undefined') ? 'base' : layer.layer_type;
+          // As stated in http://leafletjs.com/examples/layers-control,
+          // when using multiple base layers, only one of them should be added
+          // to the map at instantiation, but all of them should be present in
+          // the base layers object when creating the layers control.
+          // See statement L.control.layers(layers, overlays) much further below.
+          switch (layer.layer_type) {
+            case 'overlay':
+              //lMap.addLayer(map_layer);
+              overlays[key] = map_layer;
+              break;
+            default:
+              if (i === 0 /*|| !this.map.settings.layerControl*/) {
+                lMap.addLayer(map_layer);
+                i++;
+              }
+              layers[key] = map_layer;
+              break;
           }
           i++;
         }
 
-        // @RdB create a marker cluster layer if leaflet.markercluster.js is included
-        var cluster_layer = null;
-        if (typeof L.MarkerClusterGroup != 'undefined') {
+        var switchEnable = false;
+        for (var key in layers) {
+          if (layers[key].options.switchLayer) {
+            layers[key].setSwitchLayer(layers[layers[key].options.switchLayer]);
+            switchEnable = true;
+          }
+        }
+        if (switchEnable) {
+          switchManager = new SwitchLayerManager(lMap, {baseLayers: layers});
+        }
+
+        // keep an instance of leaflet layers
+        this.map.lLayers = layers;
+
+        // keep an instance of map_id
+        this.map.map_id = this.mapId;
+
+        // @RdB create marker cluster layers if leaflet.markercluster.js is included
+        // There will be one cluster layer for each "clusterGroup".
+        var clusterLayers = {};
+        if (typeof L.MarkerClusterGroup !== 'undefined') {
 
           // If we specified a custom cluster icon, use that.
           if (this.map.markercluster_icon) {
@@ -74,15 +113,23 @@
               return icon;
             }
           }
-
-          // Note: only applicable settings will be used, remainder are ignored
-          cluster_layer = new L.MarkerClusterGroup(settings);
-          lMap.addLayer(cluster_layer);
         }
 
         // add features
         for (i = 0; i < this.features.length; i++) {
           var feature = this.features[i];
+         
+          var cluster = (feature.type === 'point' || feature.type === 'json') &&
+            (!feature.flags || !(feature.flags & LEAFLET_MARKERCLUSTER_EXCLUDE_FROM_CLUSTER));
+
+          if (cluster) {
+            var clusterGroup = feature.clusterGroup ? feature.clusterGroup : 'global';
+            if (!clusterLayers[clusterGroup]) {
+              // Note: only applicable settings will be used, remainder are ignored
+              clusterLayers[clusterGroup] = new L.MarkerClusterGroup(settings);
+              lMap.addLayer(clusterLayers[clusterGroup]);
+            }
+          }
           var lFeature;
 
           // dealing with a layer group
@@ -90,7 +137,8 @@
             var lGroup = new L.LayerGroup();
             for (var groupKey in feature.features) {
               var groupFeature = feature.features[groupKey];
-              lFeature = leaflet_create_feature(groupFeature);
+              lFeature = leaflet_create_feature(groupFeature, lMap);
+              lFeature.options.regions = feature.regions;
               if (groupFeature.popup) {
                 lFeature.bindPopup(groupFeature.popup);
               }
@@ -100,45 +148,52 @@
             // add the group to the layer switcher
             overlays[feature.label] = lGroup;
 
-            if (cluster_layer) {
-              cluster_layer.addLayer(lGroup);
+            if (cluster && clusterLayers[clusterGroup])  {
+              clusterLayers[clusterGroup].addLayer(lGroup);
             } else {
               lMap.addLayer(lGroup);
             }
           }
           else {
-            lFeature = leaflet_create_feature(feature);
+            lFeature = leaflet_create_feature(feature, lMap);
             // @RdB add to cluster layer if one is defined, else to map
-            if (cluster_layer) {
-              cluster_layer.addLayer(lFeature);
+            if (cluster && clusterLayers[clusterGroup]) {
+              lFeature.options.regions = feature.regions;
+              clusterLayers[clusterGroup].addLayer(lFeature);
             }
             else {
               lMap.addLayer(lFeature);
             }
             if (feature.popup) {
-              lFeature.bindPopup(feature.popup, {autoPanPadding: L.point(25,25)});
+              lFeature.bindPopup(feature.popup/*, {autoPanPadding: L.point(25,25)}*/);
             }
           }
+
+          // Allow others to do something with the feature that was just added to the map
+          $(document).trigger('leaflet.feature', [lFeature, feature]);
         }
 
         // add layer switcher
         if (this.map.settings.layerControl) {
-          lMap.addControl(new L.Control.Layers(layers, overlays));
+          L.control.layers(layers, overlays).addTo(lMap);
         }
 
         // center the map
-        if (this.map.center) {
-          lMap.setView(new L.LatLng(this.map.center.lat, this.map.center.lon), this.map.settings.zoom);
+        var zoom = this.map.settings.zoom ? this.map.settings.zoom : this.map.settings.zoomDefault;
+        if (this.map.center && (this.map.center.force || this.features.length === 0)) {
+          lMap.setView(new L.LatLng(this.map.center.lat, this.map.center.lon), zoom);
         }
-        // if we have provided a zoom level, then use it after fitting bounds
-        else if (this.map.settings.zoom) {
+        else if (this.features.length > 0) {
           Drupal.leaflet.fitbounds(lMap);
-          lMap.setZoom(this.map.settings.zoom);
+          if (this.map.settings.zoom) { // or: if (zoom) ?
+            lMap.setZoom(zoom);
+          }
         }
-        // fit to bounds
-        else {
-          Drupal.leaflet.fitbounds(lMap);
-        }
+
+        // associate the center and zoom level proprerties to the built lMap.
+        // useful for post-interaction with it
+        lMap.center = lMap.getCenter();
+        lMap.zoom = lMap.getZoom();
 
         // add attribution
         if (this.map.settings.attributionControl && this.map.attribution) {
@@ -148,29 +203,47 @@
 
         // add the leaflet map to our settings object to make it accessible
         this.lMap = lMap;
+
+        // allow other modules to get access to the map object using jQuery's trigger method
+        $(document).trigger('leaflet.map', [this.map, lMap]);
+
         // Destroy features so that an AJAX reload does not get parts of the old set.
         // Required when the View has "Use AJAX" set to Yes.
         this.features = null;
       });
 
-      function leaflet_create_feature(feature) {
+      function leaflet_create_feature(feature, lMap) {
         var lFeature;
         switch (feature.type) {
           case 'point':
-            lFeature = Drupal.leaflet.create_point(feature);
+            lFeature = Drupal.leaflet.create_point(feature, lMap);
             break;
           case 'linestring':
-            lFeature = Drupal.leaflet.create_linestring(feature);
+            lFeature = Drupal.leaflet.create_linestring(feature, lMap);
             break;
           case 'polygon':
-            lFeature = Drupal.leaflet.create_polygon(feature);
+            lFeature = Drupal.leaflet.create_polygon(feature, lMap);
             break;
-          case 'multipolygon':
           case 'multipolyline':
-            lFeature = Drupal.leaflet.create_multipoly(feature);
+            feature.multipolyline = true;
+            // no break;
+          case 'multipolygon':
+            lFeature = Drupal.leaflet.create_multipoly(feature, lMap);
             break;
           case 'json':
-            lFeature = Drupal.leaflet.create_json(feature.json)
+            lFeature = Drupal.leaflet.create_json(feature.json, lMap);
+            break;
+          case 'popup':
+            lFeature = Drupal.leaflet.create_popup(feature, lMap);
+            break;
+          case 'circle':
+            lFeature = Drupal.leaflet.create_circle(feature, lMap);
+            break;
+          case 'circlemarker':
+            lFeature = Drupal.leaflet.create_circlemarker(feature, lMap);
+            break;
+          case 'rectangle':
+            lFeature = Drupal.leaflet.create_rectangle(feature, lMap);
             break;
         }
 
@@ -189,7 +262,11 @@
         return lFeature;
       }
 
+      if (window.console && window.console.log) { // Does not work on IE8
+        var renderTime = (new Date()).getTime() - start;
+        window.console.log('leaflet_markercluster.drupal.js render time: ' + renderTime/1000 + ' s');
+      }
     }
-  }
+  };
 
 })(jQuery);

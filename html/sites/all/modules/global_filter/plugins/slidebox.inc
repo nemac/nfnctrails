@@ -9,7 +9,7 @@
  *
  * Relies on an auto-cycle view to return a list of node ids that will have
  * the slidebox feature enabled. The view may be filtered by vocabulary,
- * content type, modification date (eg only recently commented content) etc.
+ * content type, modification date (e.g., only recently commented content) etc.
  * For each node the "next post" mentioned in the slidebox is the next node in
  * the view, so make sure your view results are in the order you want them.
  *
@@ -29,8 +29,8 @@ function global_filter_slidebox_data_alter(&$node_details, $view_mode) {
       $node_details['title'] = $next_node->title;
     }
     else {
-      $node_details = FALSE; // don't show slidebox
+      // Don't show slidebox.
+      $node_details = FALSE;
     }
   }
 }
-

@@ -10,13 +10,14 @@ function leaflet_markercluster_library() {
   }
   $libraries['leaflet_markercluster'] = array(
     'title' => 'Leaflet Markercluster',
-    'version' => 0, // we don't have a version
+    'version' => 0.4,
     'js' => array(
       array(
         'type' => 'file',
         'data' => "$path/leaflet.markercluster.js",
         'group' => JS_LIBRARY,
         'preprocess' => FALSE,
+        'weight' => 1,
       ),
     ),
     'css' => array(
@@ -28,17 +29,50 @@ function leaflet_markercluster_library() {
         'type' => 'file',
         'media' => 'screen',
       ),
+      "$path/MarkerCluster.Default.ie.css" => array(
+        'type' => 'file',
+        'media' => 'screen',
+        'every_page' => TRUE,
+        'browsers' => array('IE' => 'lte IE 8', '!IE' => FALSE, 'preprocess' => FALSE),
+      ),
     ),
   );
 
   return $libraries;
 }
 
-function leaflet_markercluster_preprocess_leaflet_map(&$vars) {
-  drupal_add_library('leaflet_markercluster', 'leaflet_markercluster');
-  drupal_add_js(drupal_get_path('module', 'leaflet_markercluster') . '/leaflet_markercluster.drupal.js');
+ /**
+  * Implements hook_leaflet_map_prebuild_alter().
+  */
+function leaflet_markercluster_leaflet_map_prebuild_alter(&$vars = NULL) {
+  if (!isset($vars['map']['settings']['maxClusterRadius']) || $vars['map']['settings']['maxClusterRadius'] > 0) {
+    drupal_add_library('leaflet_markercluster', 'leaflet_markercluster');
+    $options = array('type' => 'file', 'weight' => 1);
+    drupal_add_js(drupal_get_path('module', 'leaflet_markercluster') . '/leaflet_markercluster.drupal.js', $options);
+  }
 }
 
+/**
+ * Implements hook_leaflet_build_map_alter().
+ */
+function leaflet_markercluster_leaflet_build_map_alter(&$build) {
+  $settings = array();
+  if (!empty($build['#attached']['js'])) {
+    foreach($build['#attached']['js'] as $data) {
+      if (isset($data['type']) && $data['type'] == 'setting' && isset($data['data']['leaflet'])) {
+        $settings = $data['data']['leaflet'][0];
+        break;
+      }
+    }
+  }
+  if (!isset($settings['map']['settings']['maxClusterRadius']) || $settings['map']['settings']['maxClusterRadius'] > 0) {
+    $build['#attached']['library'][] = array('leaflet_markercluster', 'leaflet_markercluster');
+    $build['#attached']['js'][] = array(
+      'data' => drupal_get_path('module', 'leaflet_markercluster') . '/leaflet_markercluster.drupal.js',
+      'weight' => 1,
+    );
+  }
+}
 
 /**
  * Implements hook_requirements().

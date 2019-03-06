@@ -6,17 +6,15 @@
 /**
  * Openlayer layer handler for KML layer
  */
-(function($) {
-
 Drupal.openlayers.layer.geojson = function(title, map, options) {
   var features = null;
-  options.projection = 'EPSG:' + options.projection;
+  options.projection = new OpenLayers.Projection(options.projection);
   options.styleMap = Drupal.openlayers.getStyleMap(map, options.drupalID);
 
   // GeoJSON Projection handling
   var geojson_options = {
-    'internalProjection': new OpenLayers.Projection('EPSG:' + map.projection),
-    'externalProjection': new OpenLayers.Projection(options.projection)
+    'internalProjection': new OpenLayers.Projection(map.projection),
+    'externalProjection': options.projection
   };
 
   // If GeoJSON data is provided with the layer, use that.  Otherwise
@@ -46,21 +44,65 @@ Drupal.openlayers.layer.geojson = function(title, map, options) {
     if (options.useBBOX) {
       // BBOX strategy.
       // @see http://dev.openlayers.org/releases/OpenLayers-2.12/doc/apidocs/files/OpenLayers/Strategy/BBOX-js.html
-      options.strategies = [ new OpenLayers.Strategy.BBOX(options.resFactor) ];
+      var strategy = new OpenLayers.Strategy.BBOX(options);
+      /*
+       * We override the triggerRead of the strategy so we can add a zoom=thecurrentzoomlevel in the URL
+       * This is used by the geocluster module http://drupal.org/project/geocluster
+       */
+      strategy.triggerRead =
+        function(options) {
+          if (this.response && !(options && options.noAbort === true)) {
+              this.layer.protocol.abort(this.response);
+              this.layer.events.triggerEvent("loadend");
+          }
+          this.layer.events.triggerEvent("loadstart");
+          options.params = new Array();
+          options.params['zoom'] = options.object.map.zoom;
+          this.response = this.layer.protocol.read(
+              OpenLayers.Util.applyDefaults({
+                  filter: this.createFilter(),
+                  callback: this.merge,
+                  scope: this
+              }, options));
+        };
+      options.strategies = [strategy];
     }
     else {
       // Fixed strategy.
       // @see http://dev.openlayers.org/releases/OpenLayers-2.12/doc/apidocs/files/OpenLayers/Strategy/Fixed-js.html
-      options.strategies = [new OpenLayers.Strategy.Fixed()];
+      if (options.preload) {
+        options.strategies = [new OpenLayers.Strategy.Fixed({preload: true})];
+      }
+      else {
+        options.strategies = [new OpenLayers.Strategy.Fixed()];
+      }
     }
-    options.protocol = new OpenLayers.Protocol.HTTP({
-      url: options.url,
-      format: new OpenLayers.Format.GeoJSON()
-    });
+    if(options.useScript){
+      //use Script protocol to get around xss issues and 405 error
+      options.protocol = new OpenLayers.Protocol.Script({
+        url: options.url,
+        callbackKey: options.callbackKey,
+        callbackPrefix: "callback:",
+        filterToParams: function(filter, params) {
+         // example to demonstrate BBOX serialization
+         if (filter.type === OpenLayers.Filter.Spatial.BBOX) {
+           params.bbox = filter.value.toArray();
+           if (filter.projection) {
+              params.bbox.push(filter.projection.getCode());
+            }
+          }
+          return params;
+        }
+      });
+    }
+    else{
+      options.protocol = new OpenLayers.Protocol.HTTP({
+        url: options.url,
+        format: new OpenLayers.Format.GeoJSON()
+      });
+    }
     var layer = new OpenLayers.Layer.Vector(title, options);
   }
 
   return layer;
 };
-
-})(jQuery);

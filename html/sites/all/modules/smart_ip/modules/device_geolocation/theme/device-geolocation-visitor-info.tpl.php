@@ -22,6 +22,8 @@
  * -- region: Smart IP specific item
  * -- region_code: Smart IP specific item
  * -- time_zone: Smart IP specific item
+ * -- is_eu_country: Smart IP specific item
+ * -- is_gdpr_country: Smart IP specific item
  * -- ip_address: Smart IP specific item
  * -- timestamp: Timestamp of these data stored
  *
@@ -31,23 +33,34 @@
 <?php if (!empty($location)): ?>
   <dl>
     <?php foreach ($location as $item => $value): ?>
-      <?php if (!empty($value) && $item != 'region_code' && $item != 'timestamp'): ?>
+      <?php if (($item == 'is_eu_country' && !$value) || ($item == 'is_gdpr_country' && !$value) || (!empty($value) && $item != 'region_code' && $item != 'original_data')): ?>
         <?php
           if ($item == 'source') {
             switch ($value) {
-              case DEVICE_GEOLOCATION_MAXMIND:
-                $value = 'Geocoded Maxmind coordinates';
+              case SMART_IP_SOURCE_GEOCODED_SMART_IP:
+                $value = t('Google Map Geocoded Smart IP coordinates');
                 break;
-              case DEVICE_GEOLOCATION_W3C:
-                $value = 'Geocoded W3C coordinates';
+              case SMART_IP_SOURCE_W3C:
+                $value = t('Geocoded W3C coordinates');
                 break;
               default:
-                $value = 'Maxmind geolocation';
+                $value = t('Smart IP geolocation');
                 break;
             }
           }
+          elseif ($item == 'is_eu_country' || $item == 'is_gdpr_country') {
+            if ($value) {
+              $value = t('Yes');
+            }
+            else {
+              $value = t('No');
+            }
+          }
+          elseif ($item == 'timestamp') {
+            $value = format_date($value, 'long');
+          }
           $item = str_replace('_', ' ', $item);
-          $item[0] = strtoupper($item[0]);
+          $item = ucwords(strtolower($item));
         ?>
         <dt><?php print $item; ?></dt>
         <dd><?php print $value; ?></dd>

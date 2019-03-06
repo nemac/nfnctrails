@@ -2,14 +2,20 @@
 
   Drupal.behaviors.GlobalFilterSubmit = {
     attach: function(context, setting) {
-      // Cater for up to 9 global filters across the blocks on this page.
+      // Cater for up to 20 global filters across the blocks on this page.
+      // This is hacky... for historic reasons.
       var filterSettings =
-        [setting.global_filter_1, setting.global_filter_2, setting.global_filter_3,
-         setting.global_filter_4, setting.global_filter_5, setting.global_filter_6,
-         setting.global_filter_7, setting.global_filter_8, setting.global_filter_9];
+        [setting.global_filter_1,  setting.global_filter_2,  setting.global_filter_3,
+         setting.global_filter_4,  setting.global_filter_5,  setting.global_filter_6,
+         setting.global_filter_7,  setting.global_filter_8,  setting.global_filter_9,
+         setting.global_filter_10, setting.global_filter_11, setting.global_filter_12,
+         setting.global_filter_13, setting.global_filter_14, setting.global_filter_15,
+         setting.global_filter_16, setting.global_filter_17, setting.global_filter_18,
+         setting.global_filter_19, setting.global_filter_20];
 
       var confirmQuestion = [];
-      var autoSubmit = []; // ie set-on-change
+      // Ie set-on-change.
+      var autoSubmit = [];
       var oldValues = [];
 
       // Find global filter widgets on this page and define on-change handlers
@@ -18,30 +24,45 @@
         if (filterSettings[i] != undefined) {
 
           var selector = '', elId = '';
-          var claz = '.' + filterSettings[i][0]; // eg '.global-filter-2-field-acc-type'
+          // For eg '.global-filter-2-field-acc-type'.
+          var claz = '.' + filterSettings[i][0];
 
-          $(claz+' input:radio[checked]').each(function() {
-            selector = claz + ' input:radio'; // ie catch ANY of the radio buttons
+          $(claz + ' input:radio[checked]').each(function() {
+            // Catch ANY of the radio buttons.
+            selector = claz + ' input:radio';
             elId = $(this).attr('class');
             oldValues[elId] = $(this).attr('id');
           });
-          $(claz+' input:checkbox').each(function() {
-            selector = claz + ' input:checkbox'; // catch ALL checkboxes in the family
+          $(claz + ' input:checkbox').each(function() {
+            // Catch ALL checkboxes in the family.
+            selector = claz + ' input:checkbox';
             elId = $(this).attr('class');
-            return false; // break on first match
+            // Break on first match.
+            return false;
           });
           if (elId == '') {
-            // Single/Multi selects, date fields and text fields
-            var selectors = ['select'+claz, claz+' select', 'input:text'+claz, claz+' input.date-clear', '.global-filter-links'+claz];
-            for (var sel=0; sel < selectors.length; sel++) {
-              $(selectors[sel]).each(function() { // date range has 2 fields
+            // Single/Multi selects, date fields, text fields and proximity form
+            var selectors = [
+              'select' + claz,
+              claz + ' select',
+              'input:text' + claz,
+              claz + ' input.date-clear',
+              '.global-filter-links' + claz,
+              // Proximity form.
+              claz + ' input[name="location"],' + claz + ' input[name="distance"]'
+            ];
+            for (var sel = 0; sel < selectors.length; sel++) {
+              $(selectors[sel]).each(function() {
+                // Date range has 2 fields.
                 selector = selectors[sel];
                 if (!(elId = $(this).attr('id'))) {
                   elId = $(this).attr('class');
                 }
                 oldValues[elId] = $(this).val();
-                confirmQuestion[elId] = filterSettings[i][1]; // eg 'Are you sure?'
-                autoSubmit[elId] = filterSettings[i][2]; // '1' or undefined
+                // For ex 'Are you sure?'.
+                confirmQuestion[elId] = filterSettings[i][1];
+                // Is '1' or undefined.
+                autoSubmit[elId] = filterSettings[i][2];
               });
             }
           }
@@ -84,14 +105,16 @@
           });
 
           // On-change handler for links widget is an on-click handler
-          $('.global-filter-links'+claz+' li a').click(function(event) {
+          $('.global-filter-links' + claz + ' li a').click(function(event) {
             elId = $(this).parent().parent().attr('class');
             var changeConfirmed = !confirmQuestion[elId] || confirm(Drupal.t(confirmQuestion[elId]));
             if (!changeConfirmed) {
-              event.preventDefault(); // inhibit click action
+              // Inhibit click action.
+              event.preventDefault();
             }
             else if (setting.links_widget_via_post) {
-              event.preventDefault(); // inhibit click and post instead
+              // Inhibit click and post instead.
+              event.preventDefault();
               var id = $(this).attr('id');
               // id has format <field>:<value>
               var pos = id.indexOf(':');
